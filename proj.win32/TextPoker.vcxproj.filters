@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Scene">
+      <UniqueIdentifier>{50b8c38e-fde9-4276-b955-feb7c1942190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Scene\Hall">
+      <UniqueIdentifier>{d9dc0b65-2c53-47c4-ad40-456c8e00f688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Scene\Hall\Sprites">
+      <UniqueIdentifier>{ae3ed83d-4a1b-4453-baac-701e32f58771}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Common">
+      <UniqueIdentifier>{2f2c71ff-70cc-47b4-a1b0-29dcfd86c1bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Common\GUI">
+      <UniqueIdentifier>{e9a0ebc8-d368-4d34-87dc-8b927e5f153c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Common\Action">
+      <UniqueIdentifier>{96716e5e-202e-4024-8472-86d6bf00e4d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Scene\RoomM">
+      <UniqueIdentifier>{d3e828b9-80be-479f-bd3a-060a0f933ee3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\Hall\HallScene.cpp">
+      <Filter>Classes\Scene\Hall</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Common\GUI\BaseGUI.cpp">
+      <Filter>Classes\Common\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Common\Action\BaseAction.cpp">
+      <Filter>Classes\Common\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\RoomM\RoomMScene.cpp">
+      <Filter>Classes\Scene\RoomM</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\Hall\HallScene.h">
+      <Filter>Classes\Scene\Hall</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\GUI\BaseGUI.h">
+      <Filter>Classes\Common\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Constants.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\Action\BaseAction.h">
+      <Filter>Classes\Common\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\RoomM\RoomMScene.h">
+      <Filter>Classes\Scene\RoomM</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

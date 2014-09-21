@@ -1,0 +1,30 @@
+<skeleton name="button" frameRate="24" version="2.2">
+  <armatures>
+    <armature name="hallButton_red_blink">
+      <b name="b1" x="0" y="0.35" kX="0" kY="0" cX="1" cY="1" pX="0" pY="0.35" z="0">
+        <d name="b1" pX="207" pY="94.65"/>
+      </b>
+      <b name="b2" x="0" y="0.35" kX="0" kY="0" cX="1" cY="1" pX="0" pY="-0.65" z="0">
+        <d name="b2" pX="207" pY="95.65"/>
+      </b>
+    </armature>
+  </armatures>
+  <animations>
+    <animation name="hallButton_red_blink">
+      <mov name="blink" dr="8" to="6" drTW="8" lp="1" twE="NaN">
+        <b name="b1" sc="1" dl="0">
+          <f x="0" y="0.35" cocos2d_x="0" cocos2d_y="0" kX="0" kY="0" cX="1" cY="1" pX="0" pY="0.35" z="0" dI="0" dr="4"/>
+          <f dr="4" dI="-1"/>
+        </b>
+        <b name="b2" sc="1" dl="0">
+          <f dr="4" dI="-1"/>
+          <f x="0" y="0.35" cocos2d_x="0" cocos2d_y="1" kX="0" kY="0" cX="1" cY="1" pX="0" pY="-0.65" z="0" dI="0" dr="4"/>
+        </b>
+      </mov>
+    </animation>
+  </animations>
+  <TextureAtlas name="button" width="512" height="512">
+    <SubTexture name="b2" width="414" height="190" cocos2d_pX="207" cocos2d_pY="95.65" x="0" y="192"/>
+    <SubTexture name="b1" width="414" height="190" cocos2d_pX="207" cocos2d_pY="94.65" x="0" y="0"/>
+  </TextureAtlas>
+</skeleton>
