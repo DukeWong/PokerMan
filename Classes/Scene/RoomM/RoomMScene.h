@@ -12,11 +12,11 @@ class RoomMScene : public cocos2d::CCLayer
 private:
 	CCSize visibleSize;
 	CCPoint origin;
-	CCSprite* pRoomBackground;
-	CCSprite* pPoker;
-/*	TexaPoker::BaseGUI::BaseArmatureButton* pFireButton;*/
-	TexaPoker::BaseGUI::BaseArmatureButton* pHeartButton;
-	TexaPoker::BaseGUI::BaseMoveButton* pRoomMGirlButton;
+	int roomBackgroundTag;
+	int pokerTag;
+	int heartButtonTag;
+	int roomMGirlButtonTag;
+
 
 public:
 	RoomMScene();

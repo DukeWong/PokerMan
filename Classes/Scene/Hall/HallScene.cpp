@@ -33,7 +33,7 @@ HallScene::HallScene()
 	pHallGirl = cocos2d::extension::CCArmature::create("hallGirl_blink");
 
 	cocos2d::extension::CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(HALL_SPRITE_PATH_CONNECT(/button_red/button.png), HALL_SPRITE_PATH_CONNECT(/button_red/button.plist), HALL_SPRITE_PATH_CONNECT(/button_red/button.xml));
-	pHallButtonRed = TexaPoker::BaseGUI::BaseArmatureButton::create(0.8f, "hallButton_red_blink", 5, event_selector(HallScene::redButonCallback));
+	pHallButtonRed = TexaPoker::BaseGUI::BaseArmatureButton::create(0.8f, "hallButton_red_blink", 5, this, event_selector(HallScene::redButonCallback));
 
 	CCMenuItemImage *pHallButtonBlue1Image = CCMenuItemImage::create(
 		HALL_PATH_CONNECT(/hall_function_halllist.png),

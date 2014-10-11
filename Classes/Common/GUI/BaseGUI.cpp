@@ -63,7 +63,7 @@ namespace TexaPoker{
 		//	return (BaseButton *)CCMenu::create(item, arg);
 		//};
 
-		BaseButton* BaseButton::create(float mScaleNum, CCMenuItem* item, SEL_EventHandler mHandler){
+		BaseButton* BaseButton::create(float mScaleNum, CCMenuItem* item, CCObject* mTarget, SEL_EventHandler mHandler){
 			CCArray* pArray = NULL;
 			if( item )
 			{
@@ -74,6 +74,7 @@ namespace TexaPoker{
 			if(pBaseButton && pBaseButton->initWithArray(pArray)){
 				pBaseButton->defaultScale = mScaleNum;
 				pBaseButton->setScale(mScaleNum);
+				pBaseButton->mTarget = mTarget;
 				pBaseButton->mHandler = mHandler;
 				pBaseButton->autorelease();
 			}else{
@@ -89,11 +90,12 @@ namespace TexaPoker{
 			return _nPriority;
 		} 
 
-		BaseArmatureButton* BaseArmatureButton::create(float scale, const char *name, int nPriority, SEL_EventHandler mHandler){
+		BaseArmatureButton* BaseArmatureButton::create(float scale, const char *name, int nPriority,  CCObject* mTarget, SEL_EventHandler mHandler){
 			BaseArmatureButton *armature = new BaseArmatureButton();
 			if (armature && armature->init(name))
 			{
 				armature->defaultScale = scale;
+				armature->mTarget = mTarget;
 				armature->mHandler = mHandler;
 				armature->setPriority(nPriority);
 				armature->autorelease();
@@ -117,9 +119,9 @@ namespace TexaPoker{
 			CCRect r = this->rect();
 			if(r.containsPoint(touchLocation)){
 				this->setScale(defaultScale);
-				if(this->mHandler)
+				if(this->mTarget && this->mHandler)
 				{
-					(this->*mHandler)(event);
+					(mTarget->*mHandler)(event);
 				}
 			}
 		}
@@ -141,7 +143,7 @@ namespace TexaPoker{
 				m_obContentSize.width, m_obContentSize.height);
 		}
 
-		BaseMoveButton* BaseMoveButton::create(float mScaleNum, cocos2d::CCMenuItem* item, CCActionInterval* action, bool isBack, int status,  SEL_EventHandler mHandler)
+		BaseMoveButton* BaseMoveButton::create(float mScaleNum, cocos2d::CCMenuItem* item, CCActionInterval* action, CCObject * mTarget, bool isBack, int status, SEL_EventHandler mHandler)
 		{
 			CCArray* pArray = NULL;
 			if( item )
@@ -155,6 +157,7 @@ namespace TexaPoker{
 				pBaseButton->setScale(mScaleNum);
 				pBaseButton->isMoveBack = isBack;
 				pBaseButton->moveStatus = status;
+				pBaseButton->mTarget = mTarget;
 				pBaseButton->mHandler = mHandler;
 				CC_SAFE_RETAIN(action); 
 				pBaseButton->actionTo = action;
