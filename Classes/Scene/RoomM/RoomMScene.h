@@ -7,6 +7,9 @@
 #include "..\..\Common\GUI\BaseGUI.h"
 #include "..\..\Common\Action\BaseAction.h"
 
+#define ROOM_STATUS_INIT 0
+#define ROOM_STATUS_CARD_FLOW 1
+
 class RoomMScene : public cocos2d::CCLayer
 {
 private:
@@ -15,7 +18,11 @@ private:
 	int roomBackgroundTag;
 	int pokerTag;
 	int heartButtonTag;
+	int fireButtonTag;
 	int roomMGirlButtonTag;
+	int roomStatus;
+
+	void checkSpritesStatus();
 
 
 public:
@@ -27,6 +34,7 @@ public:
 	void onExit();
 	void menuBackCallback(CCObject* pSender);
 	void heartCallback(CCEvent* pEvent);
+	void update();
 };
 
 #endif

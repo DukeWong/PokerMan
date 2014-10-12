@@ -3,13 +3,6 @@
 namespace TexaPoker{
 	namespace BaseGUI{
 
-		//BaseButton::BaseButton(float mScaleNum){
-		//	this->defaultScale = mScaleNum;
-		//}
-
-		//BaseButton::~BaseButton(){
-		//}
-
 		bool BaseButton::ccTouchBegan(CCTouch* touch, CCEvent* event){
 			CC_UNUSED_PARAM(event);
 			if (m_eState != kCCMenuStateWaiting || ! m_bVisible)
@@ -83,6 +76,11 @@ namespace TexaPoker{
 			return pBaseButton;
 		}
 
+		void BaseButton::resetScale()
+		{
+			this->setScale(defaultScale);
+		}
+
 		void BaseArmatureButton::setPriority(int nPriority){
 			_nPriority = nPriority;
 		}
@@ -142,6 +140,11 @@ namespace TexaPoker{
 			return CCRectMake( m_obPosition.x - m_obContentSize.width * m_obAnchorPoint.x,
 				m_obPosition.y - m_obContentSize.height * m_obAnchorPoint.y,
 				m_obContentSize.width, m_obContentSize.height);
+		}
+
+		void BaseArmatureButton::resetScale()
+		{
+			this->setScale(defaultScale);
 		}
 
 		BaseMoveButton* BaseMoveButton::create(float mScaleNum, cocos2d::CCMenuItem* item, CCActionInterval* action, CCObject * mTarget, bool isBack, int status, SEL_EventHandler mHandler)

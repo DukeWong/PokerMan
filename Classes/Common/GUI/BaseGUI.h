@@ -21,6 +21,7 @@ namespace TexaPoker{
 			bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 			void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 			static BaseButton* create(float scale, cocos2d::CCMenuItem* item, CCObject* mTarget = NULL, SEL_EventHandler mHandler = NULL);
+			void resetScale();
 		};
 
 		class BaseArmatureButton: public cocos2d::extension::CCArmature, public cocos2d::CCTouchDelegate{
@@ -38,6 +39,7 @@ namespace TexaPoker{
 			void setPriority(int nPriority);
 			int getPriority();
 			CCRect rect();
+			void resetScale();
 		};
 
 		class BaseMoveButton: public BaseButton
