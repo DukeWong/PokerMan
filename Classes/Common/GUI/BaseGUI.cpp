@@ -95,6 +95,7 @@ namespace TexaPoker{
 			if (armature && armature->init(name))
 			{
 				armature->defaultScale = scale;
+				armature->setScale(scale);
 				armature->mTarget = mTarget;
 				armature->mHandler = mHandler;
 				armature->setPriority(nPriority);
