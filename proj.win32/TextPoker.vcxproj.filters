@@ -28,6 +28,9 @@
     <Filter Include="Classes\Scene\RoomM">
       <UniqueIdentifier>{d3e828b9-80be-479f-bd3a-060a0f933ee3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Scene\RoomM\Sprites">
+      <UniqueIdentifier>{f97fc927-1ee4-4b8f-a750-88901cfe9acc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -47,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\RoomM\RoomMScene.cpp">
       <Filter>Classes\Scene\RoomM</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\RoomM\Sprites\RoomBackground.cpp">
+      <Filter>Classes\Scene\RoomM\Sprites</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\RoomM\RoomMScene.h">
       <Filter>Classes\Scene\RoomM</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\RoomM\Sprites\RoomBackground.h">
+      <Filter>Classes\Scene\RoomM\Sprites</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

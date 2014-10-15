@@ -8,11 +8,12 @@ USING_NS_CC;
 RoomMScene::RoomMScene()
 	:visibleSize(CCDirector::sharedDirector()->getVisibleSize())
 	,origin(CCDirector::sharedDirector()->getVisibleOrigin())
-	,roomBackgroundTag(0x0001)
-	,pokerTag(0x0010)
-	,heartButtonTag(0x0011)
-	,fireButtonTag(0x1111)
-	,roomMGirlButtonTag(0x0111)
+	,roomBackground1Tag(0x0001)
+	,roomBackground2Tag(0x0011)
+	,pokerTag(0x1001)
+	,heartButtonTag(0x2001)
+	,fireButtonTag(0x3001)
+	,roomMGirlButtonTag(0x4001)
 	,roomStatus(ROOM_STATUS_INIT)
 	//,pPoker(CCSprite::create(ROOM_M_PATH_CONNECT(/card_back.png), CCRectMake(0,0,CCDirector::sharedDirector()->getVisibleSize().width,CCDirector::sharedDirector()->getVisibleSize().height)))
 {
@@ -43,10 +44,15 @@ bool RoomMScene::init()
 	this->addChild(pMenu, SCENE_Z_ORDER_FRONT);
 
 	ccTexParams params = {GL_LINEAR,GL_LINEAR,GL_REPEAT,GL_REPEAT};
-	CCSprite* pRoomBackground = CCSprite::create(ROOM_M_PATH_CONNECT(/room_bg.png), CCRectMake(0,0,CCDirector::sharedDirector()->getVisibleSize().width,CCDirector::sharedDirector()->getVisibleSize().height));
+	TexaPoker::RoomM::Sprites::RoomBackground* pRoomBackground = TexaPoker::RoomM::Sprites::RoomBackground::create(ROOM_M_PATH_CONNECT(/room_bg.png), CCRectMake(0,0,CCDirector::sharedDirector()->getVisibleSize().width,CCDirector::sharedDirector()->getVisibleSize().height));
 	pRoomBackground->getTexture()->setTexParameters(&params);
 	pRoomBackground->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
-	this->addChild(pRoomBackground, SCENE_Z_ORDER_BG, roomBackgroundTag);
+	this->addChild(pRoomBackground, SCENE_Z_ORDER_BG, roomBackground1Tag);
+	TexaPoker::RoomM::Sprites::RoomBackground* pRoomBackground2 = TexaPoker::RoomM::Sprites::RoomBackground::create(ROOM_M_PATH_CONNECT(/room_bg.png), CCRectMake(0,0,CCDirector::sharedDirector()->getVisibleSize().width,CCDirector::sharedDirector()->getVisibleSize().height));
+	pRoomBackground2->getTexture()->setTexParameters(&params);
+	pRoomBackground2->setPosition(ccp(visibleSize.width/2 + origin.x, - visibleSize.height/2 + origin.y));
+	this->addChild(pRoomBackground2, SCENE_Z_ORDER_BG, roomBackground2Tag);
+
 	return true;
 }
 
@@ -114,15 +120,16 @@ void RoomMScene::checkSpritesStatus()
 	if(roomStatus == ROOM_STATUS_INIT){
 		((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->stop();
 		((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->resetScale();
-		this->unschedule(NULL);
+		this->unscheduleUpdate();
 	}else if(roomStatus == ROOM_STATUS_CARD_FLOW){
 		((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->playByIndex(0);
-		this->scheduleUpdate();
+		this->scheduleUpdateWithPriority(0);
 	}
 
 }
 
-void RoomMScene::update()
+void RoomMScene::update(float data)
 {
-	CCLog("-------------");
+	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground1Tag)))->moveOn();
+	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground2Tag)))->moveOn();
 }

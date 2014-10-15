@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "Constants.h"
 #include "..\Hall\HallScene.h"
+#include "Sprites\RoomBackground.h"
 #include "..\..\Common\GUI\BaseGUI.h"
 #include "..\..\Common\Action\BaseAction.h"
 
@@ -15,7 +16,8 @@ class RoomMScene : public cocos2d::CCLayer
 private:
 	CCSize visibleSize;
 	CCPoint origin;
-	int roomBackgroundTag;
+	int roomBackground1Tag;
+	int roomBackground2Tag;
 	int pokerTag;
 	int heartButtonTag;
 	int fireButtonTag;
@@ -34,7 +36,7 @@ public:
 	void onExit();
 	void menuBackCallback(CCObject* pSender);
 	void heartCallback(CCEvent* pEvent);
-	void update();
+	void update(float data);
 };
 
 #endif

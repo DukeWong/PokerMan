@@ -5,7 +5,7 @@
 #include "CocoStudio\Armature\CCArmature.h"
 
 
-using namespace cocos2d;
+USING_NS_CC;
 
 namespace TexaPoker{
 	namespace BaseGUI{
