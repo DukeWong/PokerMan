@@ -22,4 +22,15 @@ namespace TexaPoker{
 				CC_SAFE_DELETE(pobSprite);
 				return NULL;
 			}
+
+			void RoomCard::dealCard(CCPoint to, float intervalTime)
+			{
+				CCActionInterval*  ActionBy = CCMoveBy::create(intervalTime, to);
+			}
+
+			CCPoint RoomCard::genInitPosition()
+			{
+				float X = CCDirector::sharedDirector()->getVisibleSize().width / 8 + std::rand() % ((int)CCDirector::sharedDirector()->getVisibleSize().width / 3 * 2);
+				return ccp(X,CCDirector::sharedDirector()->getVisibleSize().height / 2);
+			}
 		}}}

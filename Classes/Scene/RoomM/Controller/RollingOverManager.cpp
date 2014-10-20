@@ -19,7 +19,7 @@ namespace TexaPoker{
 				CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
 				int tempTag = CARD_CLUBS_TAG(10);
 				TexaPoker::RoomM::Sprites::RoomCard* pCard10c = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame(this, CARD_STATE_BACK, 10, CARD_CLUBS, tempTag);
-				pCard10c->setPosition(ccp(visibleSize.width/8 + origin.x, visibleSize.height/3 + origin.y));
+				pCard10c->setPosition(pCard10c->genInitPosition());
 				CCDirector::sharedDirector()->getRunningScene()->addChild(pCard10c, SCENE_Z_ORDER_FRONT, tempTag);
 			}
 
