@@ -8,17 +8,27 @@ USING_NS_CC;
 RoomMScene::RoomMScene()
 	:visibleSize(CCDirector::sharedDirector()->getVisibleSize())
 	,origin(CCDirector::sharedDirector()->getVisibleOrigin())
-	,roomBackground1Tag(0x0001)
-	,roomBackground2Tag(0x0011)
-	,pokerTag(0x1001)
-	,heartButtonTag(0x2001)
-	,fireButtonTag(0x3001)
-	,roomMGirlButtonTag(0x4001)
 	,roomStatus(ROOM_STATUS_INIT)
+	,pRManager(new TexaPoker::RoomM::Controller::RollingOverManager())
 	//,pPoker(CCSprite::create(ROOM_M_PATH_CONNECT(/card_back.png), CCRectMake(0,0,CCDirector::sharedDirector()->getVisibleSize().width,CCDirector::sharedDirector()->getVisibleSize().height)))
 {
+	int temp_tag = ROOMM_SCENE_TAG(1);
+	roomBackground1Tag = temp_tag;
+	temp_tag = ROOMM_SCENE_TAG(2);
+	roomBackground2Tag = temp_tag;
+	temp_tag = ROOMM_SCENE_TAG(3);
+	pokerTag = temp_tag;
+	temp_tag = ROOMM_SCENE_TAG(4);
+	heartButtonTag = temp_tag;
+	temp_tag = ROOMM_SCENE_TAG(5);
+	fireButtonTag = temp_tag;
+	temp_tag = ROOMM_SCENE_TAG(6);
+	roomMGirlButtonTag = temp_tag;
+
 	cocos2d::extension::CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(ROOM_M_SPRITE_PATH_CONNECT(/fire/fire.png), ROOM_M_SPRITE_PATH_CONNECT(/fire/fire.plist), ROOM_M_SPRITE_PATH_CONNECT(/fire/fire.xml));    
 	cocos2d::extension::CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.png), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.plist), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.xml));
+	CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();  
+    cache->addSpriteFramesWithFile(ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.plist), ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.png));  
 }
 
 RoomMScene::~RoomMScene()
@@ -63,14 +73,12 @@ void RoomMScene::onEnter()
 		ROOM_M_SPRITE_PATH_CONNECT(/img_pokerlady.png),
 		this,
 		NULL);
-	CCActionInterval*  pRoomMGirlActionBy = CCMoveBy::create(0.3, ccp(25,0));
+	CCActionInterval*  pRoomMGirlActionBy = CCMoveBy::create(ROOM_INIT_INTERVAL_TIME, ccp(25,0));
 	TexaPoker::BaseGUI::BaseMoveButton* pRoomMGirlButton = TexaPoker::BaseGUI::BaseMoveButton::create(1, pRoomMGirlImage, pRoomMGirlActionBy);
 	pRoomMGirlButton->setTouchEnabled(false);
 	pRoomMGirlButton->setPosition(ccp(visibleSize.width/8 + origin.x, visibleSize.height/3 + origin.y));
 	this->addChild(pRoomMGirlButton, SCENE_Z_ORDER_FRONT, roomMGirlButtonTag);
 	pRoomMGirlButton->moveBy(pRoomMGirlButton);
-
-
 
 	TexaPoker::BaseGUI::BaseArmatureButton* pFireButton = TexaPoker::BaseGUI::BaseArmatureButton::create(0.7f, "fire", 5, this, NULL);
 	pFireButton->getAnimation()->setAnimationScale(0.5f);
@@ -83,6 +91,8 @@ void RoomMScene::onEnter()
 	pHeartButton->setAnchorPoint(ccp(0, 0));
 	pHeartButton->setPosition(ccp(visibleSize.width/50*46, visibleSize.height/10*9));
 	this->addChild(pHeartButton, SCENE_Z_ORDER_BUTTON, heartButtonTag);
+
+	this->scheduleOnce(schedule_selector(RoomMScene::initCards),ROOM_INIT_INTERVAL_TIME);
 
 	CCLayer::onEnter();
 }
@@ -132,4 +142,9 @@ void RoomMScene::update(float data)
 {
 	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground1Tag)))->moveOn();
 	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground2Tag)))->moveOn();
+}
+
+void RoomMScene::initCards(float data)
+{
+	pRManager->initCards();
 }

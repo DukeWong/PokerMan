@@ -5,11 +5,14 @@
 #include "Constants.h"
 #include "..\Hall\HallScene.h"
 #include "Sprites\RoomBackground.h"
+#include "Controller\RollingOverManager.h"
 #include "..\..\Common\GUI\BaseGUI.h"
 #include "..\..\Common\Action\BaseAction.h"
 
 #define ROOM_STATUS_INIT 0
 #define ROOM_STATUS_CARD_FLOW 1
+
+#define ROOM_INIT_INTERVAL_TIME 0.3F
 
 class RoomMScene : public cocos2d::CCLayer
 {
@@ -23,7 +26,7 @@ private:
 	int fireButtonTag;
 	int roomMGirlButtonTag;
 	int roomStatus;
-
+	TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
 	void checkSpritesStatus();
 
 
@@ -37,6 +40,7 @@ public:
 	void menuBackCallback(CCObject* pSender);
 	void heartCallback(CCEvent* pEvent);
 	void update(float data);
+	void initCards(float data);
 };
 
 #endif
