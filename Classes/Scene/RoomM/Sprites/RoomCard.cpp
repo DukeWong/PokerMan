@@ -1,4 +1,5 @@
 #include "RoomCard.h"
+#include "..\..\..\Common\Util\BaseUtil.h"
 
 USING_NS_CC;
 
@@ -25,12 +26,13 @@ namespace TexaPoker{
 
 			void RoomCard::dealCard(CCPoint to, float intervalTime)
 			{
-				CCActionInterval*  ActionBy = CCMoveBy::create(intervalTime, to);
+				CCActionInterval*  actionTo = CCMoveTo::create(intervalTime, to);
+				this->runAction(actionTo);
 			}
 
 			CCPoint RoomCard::genInitPosition()
 			{
-				float X = CCDirector::sharedDirector()->getVisibleSize().width / 8 + std::rand() % ((int)CCDirector::sharedDirector()->getVisibleSize().width / 3 * 2);
-				return ccp(X,CCDirector::sharedDirector()->getVisibleSize().height / 2);
+				float x = TexaPoker::BaseUtil::BaseUtil::genRand(CCDirector::sharedDirector()->getVisibleSize().width / 8, CCDirector::sharedDirector()->getVisibleSize().width / 3 * 2);
+				return ccp(x,CCDirector::sharedDirector()->getVisibleSize().height / 10 * 9);
 			}
 		}}}

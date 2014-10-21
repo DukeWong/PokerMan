@@ -31,6 +31,12 @@
     <Filter Include="Classes\Scene\RoomM\Sprites">
       <UniqueIdentifier>{f97fc927-1ee4-4b8f-a750-88901cfe9acc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Scene\RoomM\Controller">
+      <UniqueIdentifier>{c9c2d142-f5a5-40fa-af23-02b20a574281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Common\Util">
+      <UniqueIdentifier>{0eebaad8-33a4-4db5-badc-65967fa168d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +59,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Scene\RoomM\Sprites\RoomBackground.cpp">
       <Filter>Classes\Scene\RoomM\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\RoomM\Sprites\RoomCard.cpp">
+      <Filter>Classes\Scene\RoomM\Sprites</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Scene\RoomM\Controller\RollingOverManager.cpp">
+      <Filter>Classes\Scene\RoomM\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Common\Util\BaseUtil.cpp">
+      <Filter>Classes\Common\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,6 +94,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Scene\RoomM\Sprites\RoomBackground.h">
       <Filter>Classes\Scene\RoomM\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\RoomM\Sprites\RoomCard.h">
+      <Filter>Classes\Scene\RoomM\Sprites</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Scene\RoomM\Controller\RollingOverManager.h">
+      <Filter>Classes\Scene\RoomM\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\Util\BaseUtil.h">
+      <Filter>Classes\Common\Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
