@@ -9,7 +9,7 @@ RoomMScene::RoomMScene()
 	:visibleSize(CCDirector::sharedDirector()->getVisibleSize())
 	,origin(CCDirector::sharedDirector()->getVisibleOrigin())
 	,roomStatus(ROOM_STATUS_INIT)
-	,pRManager(new TexaPoker::RoomM::Controller::RollingOverManager())
+	,pRManager(new TexaPoker::RoomM::Controller::RollingOverManager(this))
 	//,pPoker(CCSprite::create(ROOM_M_PATH_CONNECT(/card_back.png), CCRectMake(0,0,CCDirector::sharedDirector()->getVisibleSize().width,CCDirector::sharedDirector()->getVisibleSize().height)))
 {
 	int temp_tag = ROOMM_SCENE_TAG(1);

@@ -7,7 +7,8 @@ namespace TexaPoker{
 	namespace RoomM{
 		namespace Controller{
 
-			RollingOverManager::RollingOverManager()
+			RollingOverManager::RollingOverManager(CCLayer * c)
+				:mScene(c)
 			{
 				initCardData();
 			}
@@ -67,21 +68,32 @@ namespace TexaPoker{
 				cardsArray[50] = CARDJS;
 				cardsArray[51] = CARDQS;
 				cardsArray[52] = CARDKS;
+
+				cardsPosition[0] = ccp(20, 20);
+				cardsPosition[1] = ccp(50, 20);
+				cardsPosition[2] = ccp(40, 20);
+
 			}
 			void RollingOverManager::initCards()
 			{
-				CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-				CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
-				int tempTag = CARD_CLUBS_TAG(10);
-				TexaPoker::RoomM::Sprites::RoomCard* pCard10c = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame(this, CARD_STATE_BACK, 10, CARD_CLUBS, tempTag);
-				pCard10c->setPosition(pCard10c->genInitPosition());
-				CCDirector::sharedDirector()->getRunningScene()->addChild(pCard10c, SCENE_Z_ORDER_FRONT, tempTag);
-				pCard10c->dealCard(ccp(300, 100), 3);
-				
-				TexaPoker::RoomM::Sprites::RoomCard* pCard11c = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame(this, CARD_STATE_BACK, 10, CARD_CLUBS, tempTag);
-				pCard11c->setPosition(pCard11c->genInitPosition());
-				CCDirector::sharedDirector()->getRunningScene()->addChild(pCard11c, SCENE_Z_ORDER_FRONT, 1987);
-				pCard11c->dealCard(ccp(300, 100), 3);
+				mScene->schedule(schedule_selector(RollingOverManager::addCards), 1.0f);  
+				//CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
+				//CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
+				//int tempTag = CARD_CLUBS_TAG(10);
+				//TexaPoker::RoomM::Sprites::RoomCard* pCard10c = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame(this, CARD_STATE_BACK, 10, CARD_CLUBS, tempTag);
+				//pCard10c->setPosition(pCard10c->genInitPosition());
+				//CCDirector::sharedDirector()->getRunningScene()->addChild(pCard10c, SCENE_Z_ORDER_FRONT, tempTag);
+				//pCard10c->dealCard(ccp(300, 100), 3);
+				//
+				//TexaPoker::RoomM::Sprites::RoomCard* pCard11c = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame(this, CARD_STATE_BACK, 10, CARD_CLUBS, tempTag);
+				//pCard11c->setPosition(pCard11c->genInitPosition());
+				//CCDirector::sharedDirector()->getRunningScene()->addChild(pCard11c, SCENE_Z_ORDER_FRONT, 1987);
+				//pCard11c->dealCard(ccp(300, 100), 3);
+			}
+
+			void RollingOverManager::addCards(float time)
+			{
+				CCLog("hello");
 			}
 
 			int RollingOverManager::getCardArrayCount(int num, int type)

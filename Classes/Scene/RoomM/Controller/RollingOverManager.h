@@ -13,12 +13,16 @@ namespace TexaPoker{
 			{
 			private:
 				std::string cardsArray[53];
+				CCPoint cardsPosition[10];
+				CCLayer *mScene;
 			public:
+				RollingOverManager(CCLayer * c);
 				void initCardData();
 				void initCards();
-				RollingOverManager();
+				void addCards(float time);
 				int getCardArrayCount(int cardNum, int cardType);
 				std::string* getCardArrays();
+				
 			};
 		}
 	}
