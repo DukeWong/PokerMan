@@ -11,6 +11,8 @@ namespace TexaPoker{
 
 			RollingOverManager::RollingOverManager(CCLayer * c)
 				:mScene(c)
+				,cardPositionSize(0)
+				,currentCardPosition(0)
 			{
 				initCardData();
 			}
@@ -71,26 +73,58 @@ namespace TexaPoker{
 				cardsArray[51] = CARD12S;
 				cardsArray[52] = CARD13S;
 
-				cardsPosition[0] = ccp(20, 20);
-				cardsPosition[1] = ccp(50, 20);
-				cardsPosition[2] = ccp(40, 20);
+				cardsPosition[0] = ccp(440, 100);
+				cardsPosition[1] = ccp(530, 100);
+				cardsPosition[2] = ccp(620, 100);
+				cardsPosition[3] = ccp(710, 100);
+				cardsPosition[4] = ccp(800, 100);
+				cardsPosition[5] = ccp(890, 100);
+				cardsPosition[6] = ccp(980, 100);
+				cardsPosition[7] = ccp(1070, 100);
+				cardsPosition[8] = ccp(1160, 100);
+				cardsPosition[9] = ccp(440, 211);
+				cardsPosition[10] = ccp(530, 211);
+				cardsPosition[11] = ccp(620, 211);
+				cardsPosition[12] = ccp(710, 211);
+				cardsPosition[13] = ccp(800, 211);
+				cardsPosition[14] = ccp(890, 211);
+				cardsPosition[15] = ccp(980, 211);
+				cardsPosition[16] = ccp(1070, 211);
+				cardsPosition[17] = ccp(1160, 211);
+				cardsPosition[18] = ccp(440, 322);
+				cardsPosition[19] = ccp(530, 322);
+				cardsPosition[20] = ccp(620, 322);
+				cardsPosition[21] = ccp(710, 322);
+				cardsPosition[22] = ccp(800, 322);
+				cardsPosition[23] = ccp(890, 322);
+				cardsPosition[24] = ccp(980, 322);
+				cardsPosition[25] = ccp(1070, 322);
+				cardsPosition[26] = ccp(1160, 322);
+				cardsPosition[27] = ccp(440, 433);
+				cardsPosition[28] = ccp(530, 433);
+				cardsPosition[29] = ccp(620, 433);
+				cardsPosition[30] = ccp(710, 433);
+				cardsPosition[31] = ccp(800, 433);
+				cardsPosition[32] = ccp(890, 433);
+				cardsPosition[33] = ccp(980, 433);
+				cardsPosition[34] = ccp(1070, 433);
+				cardsPosition[35] = ccp(1160, 433);
+				cardsPosition[36] = ccp(440, 544);
+				cardsPosition[37] = ccp(530, 544);
+				cardsPosition[38] = ccp(620, 544);
+				cardsPosition[39] = ccp(710, 544);
+				cardsPosition[40] = ccp(800, 544);
+				cardsPosition[41] = ccp(890, 544);
+				cardsPosition[42] = ccp(980, 544);
+				cardsPosition[43] = ccp(1070, 544);
+				cardsPosition[44] = ccp(1160, 544);
+
+				cardPositionSize = sizeof(cardsPosition)/sizeof(cardsPosition[0]);
 
 			}
 			void RollingOverManager::initCards()
 			{
-				mScene->schedule(schedule_selector(RollingOverManager::addCards), 1.0f);  
-				//CCSize visibleSize = CCDirector::sharedDirector()->getVisibleSize();
-				//CCPoint origin = CCDirector::sharedDirector()->getVisibleOrigin();
-				//int tempTag = CARD_CLUBS_TAG(10);
-				//TexaPoker::RoomM::Sprites::RoomCard* pCard10c = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame(this, CARD_STATE_BACK, 10, CARD_CLUBS, tempTag);
-				//pCard10c->setPosition(pCard10c->genInitPosition());
-				//CCDirector::sharedDirector()->getRunningScene()->addChild(pCard10c, SCENE_Z_ORDER_FRONT, tempTag);
-				//pCard10c->dealCard(ccp(300, 100), 3);
-				//
-				//TexaPoker::RoomM::Sprites::RoomCard* pCard11c = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame(this, CARD_STATE_BACK, 10, CARD_CLUBS, tempTag);
-				//pCard11c->setPosition(pCard11c->genInitPosition());
-				//CCDirector::sharedDirector()->getRunningScene()->addChild(pCard11c, SCENE_Z_ORDER_FRONT, 1987);
-				//pCard11c->dealCard(ccp(300, 100), 3);
+				mScene->schedule(schedule_selector(RollingOverManager::addCards), 0.005f);  
 			}
 
 			int RollingOverManager::getCardTag(int type, int num)
@@ -283,15 +317,24 @@ namespace TexaPoker{
 			}
 			void RollingOverManager::addCards(float time)
 			{
-				CCLog("hello");
+				int currentCardPosition = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCurrentCardPosition();
+				int cardPositionSize = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCardPositionSize();
+				if(currentCardPosition >= cardPositionSize)
+					return;
+				CCPoint* positionArray = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCardPositionArray();
+				//CCLog("--- currentP %d SIze %d", currentCardPosition, cardPositionSize);
+				//CCLog("x %d y %d", (positionArray + currentCardPosition)->x, (positionArray + currentCardPosition)->y);
 				int type = CARD_TYPE(TexaPoker::BaseUtil::Num::genRand(0, 4));
 				int num = CARD_TYPE(TexaPoker::BaseUtil::Num::genRand(1, 13));
 				int tempTag = getCardTag(type, num);
 				TexaPoker::RoomM::Sprites::RoomCard* pcard = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame( ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager() , CARD_STATE_BACK, num, type, tempTag);
 				pcard->setPosition(pcard->genInitPosition());
 				CCDirector::sharedDirector()->getRunningScene()->addChild(pcard, SCENE_Z_ORDER_FRONT);
-				pcard->dealCard(ccp(300, 100), 3);
-
+				pcard->dealCard(ccp((positionArray + currentCardPosition)->x, (positionArray + currentCardPosition)->y), 0.1);
+				((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->setCurrentCardPosition(currentCardPosition + 1);
+				pcard->runAction( 
+				 CCRotateTo::create(1, 720) 
+				 ); 
 			}
 
 			int RollingOverManager::getCardArrayCount(int num, int type)
@@ -303,6 +346,27 @@ namespace TexaPoker{
 			{
 				return this->cardsArray;
 			}
+
+			int RollingOverManager::getCardPositionSize()
+			{
+				return cardPositionSize;
+			}
+
+			void RollingOverManager::setCurrentCardPosition(int p)
+			{
+				currentCardPosition = p;
+			}
+
+			int RollingOverManager::getCurrentCardPosition()
+			{
+				return currentCardPosition;
+			}
+
+			CCPoint* RollingOverManager::getCardPositionArray()
+			{
+				return cardsPosition;
+			}
+
 		}
 	}
 }

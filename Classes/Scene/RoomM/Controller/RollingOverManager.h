@@ -13,8 +13,10 @@ namespace TexaPoker{
 			{
 			private:
 				std::string cardsArray[53];
-				CCPoint cardsPosition[10];
+				CCPoint cardsPosition[45];
 				CCLayer *mScene;
+				int cardPositionSize;
+				int currentCardPosition;
 			public:
 				RollingOverManager(CCLayer * c);
 				void initCardData();
@@ -23,6 +25,10 @@ namespace TexaPoker{
 				int getCardArrayCount(int cardNum, int cardType);
 				std::string* getCardArrays();
 				int getCardTag(int type, int num);
+				int getCardPositionSize();
+				CCPoint* getCardPositionArray();
+				void setCurrentCardPosition(int position);
+				int getCurrentCardPosition();
 				
 			};
 		}

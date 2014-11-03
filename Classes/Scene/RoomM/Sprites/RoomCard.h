@@ -8,11 +8,6 @@
 #define CARD_STATE_BACK 0
 #define CARD_STATE_FRONT 1
 
-//#define CARD_HERATS 0 //ºìÌÒ
-//#define CARD_SPADES 1 //ºÚÌÒ
-//#define CARD_CLUBS 2 //Ã·»¨
-//#define CARD_DIAMONDS 3 //·½¿é
-
 enum CARD_TYPE{CARD_HERATS = 0, CARD_SPADES, CARD_CLUBS, CARD_DIAMONDS};
 
 USING_NS_CC;
