@@ -9,6 +9,8 @@ namespace TexaPoker{
 			RoomCard* RoomCard::createWithSpriteFrame(TexaPoker::RoomM::Controller::RollingOverManager* manager, int state, int cardNum, int cardType, int tag)
 			{
 				const char * name = (*(manager->getCardArrays() + manager->getCardArrayCount(cardNum, cardType))).c_str();
+
+				CCLog("%s", name);
 				CCSpriteFrame *pSpriteFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name);
 				RoomCard *pobSprite = new RoomCard();
 				pobSprite->tag = tag;
@@ -32,7 +34,7 @@ namespace TexaPoker{
 
 			CCPoint RoomCard::genInitPosition()
 			{
-				float x = TexaPoker::BaseUtil::BaseUtil::genRand(CCDirector::sharedDirector()->getVisibleSize().width / 8, CCDirector::sharedDirector()->getVisibleSize().width / 3 * 2);
+				float x = TexaPoker::BaseUtil::Num::genRand(CCDirector::sharedDirector()->getVisibleSize().width / 8, CCDirector::sharedDirector()->getVisibleSize().width / 3 * 2);
 				return ccp(x,CCDirector::sharedDirector()->getVisibleSize().height / 10 * 9);
 			}
 		}}}

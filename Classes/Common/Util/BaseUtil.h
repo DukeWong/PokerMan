@@ -5,7 +5,7 @@
 
 namespace TexaPoker{
 	namespace BaseUtil{
-	class BaseUtil
+	class Num
 	{
 	public:
 	static int genRand(float left, float right);

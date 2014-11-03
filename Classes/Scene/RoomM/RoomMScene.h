@@ -14,33 +14,41 @@
 
 #define ROOM_INIT_INTERVAL_TIME 0.3F
 
-class RoomMScene : public cocos2d::CCLayer
-{
-private:
-	CCSize visibleSize;
-	CCPoint origin;
-	int roomBackground1Tag;
-	int roomBackground2Tag;
-	int pokerTag;
-	int heartButtonTag;
-	int fireButtonTag;
-	int roomMGirlButtonTag;
-	int roomStatus;
-	TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
-	void checkSpritesStatus();
+namespace TexaPoker{
+	namespace RoomM{
+		namespace Scene{
+			class RoomMScene : public cocos2d::CCLayer
+			{
+			private:
+				CCSize visibleSize;
+				CCPoint origin;
+				int roomBackground1Tag;
+				int roomBackground2Tag;
+				int pokerTag;
+				int heartButtonTag;
+				int fireButtonTag;
+				int roomMGirlButtonTag;
+				int roomStatus;
+				TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
+				void checkSpritesStatus();
 
 
-public:
-	RoomMScene();
-	~RoomMScene();
-	virtual bool init();  
-	CREATE_FUNC(RoomMScene);
-	void onEnter();
-	void onExit();
-	void menuBackCallback(CCObject* pSender);
-	void heartCallback(CCEvent* pEvent);
-	void update(float data);
-	void initCards(float data);
-};
+			public:
+				RoomMScene();
+				~RoomMScene();
+				virtual bool init();  
+				CREATE_FUNC(RoomMScene);
+				void onEnter();
+				void onExit();
+				TexaPoker::RoomM::Controller::RollingOverManager* getPRManager();
+				void menuBackCallback(CCObject* pSender);
+				void heartCallback(CCEvent* pEvent);
+				void update(float data);
+				void initCards(float data);
+			};
+		}
+	}
+}
+
 
 #endif

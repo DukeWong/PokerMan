@@ -22,6 +22,7 @@ namespace TexaPoker{
 				void addCards(float time);
 				int getCardArrayCount(int cardNum, int cardType);
 				std::string* getCardArrays();
+				int getCardTag(int type, int num);
 				
 			};
 		}

@@ -246,7 +246,7 @@ void HallScene::pHallButtonBlue2Touched(CCObject* pSender)
 void HallScene::redButonCallback(CCEvent* pEvent)
 {
 	CCScene *pScene = CCScene::create();
-	RoomMScene *layer = RoomMScene::create();
+	TexaPoker::RoomM::Scene::RoomMScene *layer = TexaPoker::RoomM::Scene::RoomMScene::create();
 	pScene->addChild(layer);
 	CCDirector::sharedDirector()->replaceScene(pScene);
 }

@@ -19,7 +19,7 @@
 /* card begin*/
 #define CARDBACK "card_back.png"
 //梅花 Clubs 
-#define CARDAC "card_a_c.png"
+#define CARD1C "card_a_c.png"
 #define CARD2C "card_2_c.png"
 #define CARD3C "card_3_c.png"
 #define CARD4C "card_4_c.png"
@@ -29,11 +29,11 @@
 #define CARD8C "card_8_c.png"
 #define CARD9C "card_9_c.png"
 #define CARD10C "card_10_c.png";
-#define CARDJC "card_j_c.png"
-#define CARDQC "card_q_c.png"
-#define CARDKC "card_k_c.png"
+#define CARD11C "card_j_c.png"
+#define CARD12C "card_q_c.png"
+#define CARD13C "card_k_c.png"
 //方块 diamonds 
-#define CARDAD "card_a_d.png"
+#define CARD1D "card_a_d.png"
 #define CARD2D "card_2_d.png"
 #define CARD3D "card_3_d.png"
 #define CARD4D "card_4_d.png"
@@ -43,11 +43,11 @@
 #define CARD8D "card_8_d.png"
 #define CARD9D "card_9_d.png"
 #define CARD10D "card_10_c.png";
-#define CARDJD "card_j_d.png"
-#define CARDQD "card_q_d.png"
-#define CARDKD "card_k_d.png"
+#define CARD11D "card_j_d.png"
+#define CARD12D "card_q_d.png"
+#define CARD13D "card_k_d.png"
 //红桃 hearts 
-#define CARDAH "card_a_h.png"
+#define CARD1H "card_a_h.png"
 #define CARD2H "card_2_h.png"
 #define CARD3H "card_3_h.png"
 #define CARD4H "card_4_h.png"
@@ -57,11 +57,11 @@
 #define CARD8H "card_8_h.png"
 #define CARD9H "card_9_h.png"
 #define CARD10H "card_10_h.png";
-#define CARDJH "card_j_h.png"
-#define CARDQH "card_q_h.png"
-#define CARDKH "card_k_h.png"
+#define CARD11H "card_j_h.png"
+#define CARD12H "card_q_h.png"
+#define CARD13H "card_k_h.png"
 //黑桃 spade 
-#define CARDAS "card_a_s.png"
+#define CARD1S "card_a_s.png"
 #define CARD2S "card_2_s.png"
 #define CARD3S "card_3_s.png"
 #define CARD4S "card_4_s.png"
@@ -71,15 +71,18 @@
 #define CARD8S "card_8_s.png"
 #define CARD9S "card_9_s.png"
 #define CARD10S "card_10_d.png";
-#define CARDJS "card_j_s.png"
-#define CARDQS "card_q_s.png"
-#define CARDKS "card_k_s.png"
+#define CARD11S "card_j_s.png"
+#define CARD12S "card_q_s.png"
+#define CARD13S "card_k_s.png"
 
 /* card end */
 
 /*  Tag begin  */
 #define ROOMM_SCENE_TAG(name) ROOMM_SCENE_##name##_TAG //房间类型
 #define CARD_CLUBS_TAG(num) CARD_CLUBS_##num##_TAG; //牌类型
+#define CARD_DIAMONDS_TAG(num) CARD_DIAMONDS_##num##_TAG; 
+#define CARD_HEARTS_TAG(num) CARD_HEARTS_##num##_TAG; 
+#define CARD_SPADE_TAG(num) CARD_SPADE_##num##_TAG; 
 
 #define ROOMM_SCENE_1_TAG 1;
 #define ROOMM_SCENE_2_TAG 2;
@@ -89,7 +92,19 @@
 #define ROOMM_SCENE_6_TAG 6;
 #define ROOMM_SCENE_7_TAG 7;
 
-#define CARD_CLUBS_10_TAG 256;
+#define CARD_CLUBS_1_TAG 8;
+#define CARD_CLUBS_2_TAG 9;
+#define CARD_CLUBS_3_TAG 10;
+#define CARD_CLUBS_4_TAG 11;
+#define CARD_CLUBS_5_TAG 12;
+#define CARD_CLUBS_6_TAG 13;
+#define CARD_CLUBS_7_TAG 14;
+#define CARD_CLUBS_8_TAG 15;
+#define CARD_CLUBS_9_TAG 16;
+#define CARD_CLUBS_10_TAG 17;
+#define CARD_CLUBS_11_TAG 18;
+#define CARD_CLUBS_12_TAG 19;
+#define CARD_CLUBS_13_TAG 20;
 #define CARD_3_10_TAG 332;
 
 /*  Tag end  */
