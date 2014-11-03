@@ -330,11 +330,8 @@ namespace TexaPoker{
 				TexaPoker::RoomM::Sprites::RoomCard* pcard = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame( ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager() , CARD_STATE_BACK, num, type, tempTag);
 				pcard->setPosition(pcard->genInitPosition());
 				CCDirector::sharedDirector()->getRunningScene()->addChild(pcard, SCENE_Z_ORDER_FRONT);
-				pcard->dealCard(ccp((positionArray + currentCardPosition)->x, (positionArray + currentCardPosition)->y), 0.1);
+				pcard->dealCardShake(ccp((positionArray + currentCardPosition)->x, (positionArray + currentCardPosition)->y), 0.1);
 				((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->setCurrentCardPosition(currentCardPosition + 1);
-				pcard->runAction( 
-				 CCRotateTo::create(1, 720) 
-				 ); 
 			}
 
 			int RollingOverManager::getCardArrayCount(int num, int type)

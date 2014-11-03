@@ -24,6 +24,7 @@ namespace TexaPoker{
 			public:
 				static RoomCard* createWithSpriteFrame(TexaPoker::RoomM::Controller::RollingOverManager* manager, int state, int cardNum, int cardType, int tag);
 				void dealCard(CCPoint to, float intervalTime);
+				void dealCardShake(CCPoint to, float intervalTime);
 				CCPoint genInitPosition();
 
 				//CC_SYNTHESIZE_READONLY(int, tag, Tag);

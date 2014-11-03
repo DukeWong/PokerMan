@@ -3,20 +3,30 @@
 
 #include "cocos2d.h"
 
-using namespace cocos2d;
+USING_NS_CC;
 
 namespace TexaPoker{
 	namespace BaseAction{
-
-		class MoveAction
+		class ShakeAction : public CCActionInterval
 		{
-		private:
-			CCActionInterval*  actionByMap;
 		public:
-			void ActionBy(CCNode *pNode, float duration, CCPoint &pos);
+			ShakeAction();
+			static ShakeAction* create(float fDuration, float m_strength_x, float m_strength_y);
+			virtual bool initWithDuration(float fDuration, float m_strength_x, float m_strength_y);
+			/**
+			*  @js NA
+			*  @lua NA
+			*/
+			virtual void startWithTarget(CCNode *pTarget);
+			virtual void update(float time);
+			virtual void stop();
+
+		protected:
+			// Strength of the action  
+			float m_strength_x, m_strength_y; 
+			CCPoint m_StartPosition;  
 		};
 
 	}}
-
 
 #endif

@@ -1,5 +1,6 @@
 #include "RoomCard.h"
 #include "..\..\..\Common\Util\BaseUtil.h"
+#include "..\..\..\Common\Action\BaseAction.h"
 
 USING_NS_CC;
 
@@ -34,6 +35,13 @@ namespace TexaPoker{
 			{
 				CCActionInterval*  actionTo = CCMoveTo::create(intervalTime, to);
 				this->runAction(actionTo);
+			}
+
+			void RoomCard::dealCardShake(CCPoint to, float intervalTime)
+			{
+				CCActionInterval*  actionTo = CCMoveTo::create(intervalTime, to);
+				TexaPoker::BaseAction::ShakeAction* shake = TexaPoker::BaseAction::ShakeAction::create(3, 15, 15);  
+				this->runAction(CCSequence::create(actionTo, shake, NULL));  
 			}
 
 			CCPoint RoomCard::genInitPosition()
