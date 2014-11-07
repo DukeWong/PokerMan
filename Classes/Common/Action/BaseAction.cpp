@@ -44,11 +44,11 @@ namespace TexaPoker{
 
 		void ShakeAction::update(float dt)  
 		{  
-			float randx = fgRangeRand( -m_strength_x, m_strength_x ) * dt;  
-			float randy = fgRangeRand( -m_strength_y, m_strength_y ) * dt;  
+			float randx = fgRangeRand( -m_strength_x, m_strength_x );  
+			float randy = fgRangeRand( -m_strength_y, m_strength_y );  
 
 			// move the target to a shaked position  
-			m_pTarget->setPosition( ccpAdd(m_StartPosition, ccp( randx, randy)));  
+			m_pTarget->setPosition( ccp( randx + m_StartPosition.x, randy + m_StartPosition.y)); 
 		}  
 
 		void ShakeAction::startWithTarget(CCNode *pTarget)  

@@ -40,7 +40,7 @@ namespace TexaPoker{
 			void RoomCard::dealCardShake(CCPoint to, float intervalTime)
 			{
 				CCActionInterval*  actionTo = CCMoveTo::create(intervalTime, to);
-				TexaPoker::BaseAction::ShakeAction* shake = TexaPoker::BaseAction::ShakeAction::create(3, 15, 15);  
+				TexaPoker::BaseAction::ShakeAction* shake = TexaPoker::BaseAction::ShakeAction::create(99999999999, 1, 1);  //repeat forver
 				this->runAction(CCSequence::create(actionTo, shake, NULL));  
 			}
 
