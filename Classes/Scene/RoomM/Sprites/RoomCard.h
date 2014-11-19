@@ -15,7 +15,7 @@ USING_NS_CC;
 namespace TexaPoker{
 	namespace RoomM{
 		namespace Sprites{
-			class RoomCard : public cocos2d::CCSprite
+			class RoomCard : public cocos2d::CCSprite, public cocos2d::CCTouchDelegate
 			{
 				private: int tag;
 						 int num;
@@ -25,6 +25,10 @@ namespace TexaPoker{
 				static RoomCard* createWithSpriteFrame(TexaPoker::RoomM::Controller::RollingOverManager* manager, int state, int cardNum, int cardType, int tag);
 				void dealCard(CCPoint to, float intervalTime);
 				void dealCardShake(CCPoint to, float intervalTime);
+				void turnOverBack();
+				CCRect rect();
+				virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+				virtual void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 				CCPoint genInitPosition();
 
 				//CC_SYNTHESIZE_READONLY(int, tag, Tag);

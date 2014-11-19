@@ -44,9 +44,38 @@ namespace TexaPoker{
 				this->runAction(CCSequence::create(actionTo, shake, NULL));  
 			}
 
+			void RoomCard::turnOverBack()
+			{
+				this->stopAllActions();
+				auto action1 = CCOrbitCamera::create(0.5f,1, 0, 270, 90, 0, 0);
+				this->runAction(CCRepeatForever::create(action1));
+			}
+
 			CCPoint RoomCard::genInitPosition()
 			{
 				//float x = TexaPoker::BaseUtil::Num::genRand(CCDirector::sharedDirector()->getVisibleSize().width / 8, CCDirector::sharedDirector()->getVisibleSize().width / 3 * 2);
 				return ccp(CCDirector::sharedDirector()->getVisibleSize().width / 10, CCDirector::sharedDirector()->getVisibleSize().height / 10 * 9);
+			}
+
+			CCRect RoomCard::rect()
+			{
+				return CCRectMake( m_obPosition.x - m_obContentSize.width * m_obAnchorPoint.x,
+					m_obPosition.y - m_obContentSize.height * m_obAnchorPoint.y,
+					m_obContentSize.width, m_obContentSize.height);
+			}
+
+			bool RoomCard::ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
+			{
+				CCPoint touchLocation= touch->getLocation();
+				CCRect r = this->rect();
+				if(r.containsPoint(touchLocation)){
+					turnOverBack();
+				}	
+				return true;
+			}
+
+			void RoomCard::ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
+			{
+
 			}
 		}}}
