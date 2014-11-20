@@ -47,8 +47,8 @@ namespace TexaPoker{
 			void RoomCard::turnOverBack()
 			{
 				this->stopAllActions();
-				auto action1 = CCOrbitCamera::create(0.5f,1, 0, 270, 90, 0, 0);
-				this->runAction(CCRepeatForever::create(action1));
+				auto turnAction = CCOrbitCamera::create(0.5f, 0, 1, 270, 90, 0, 0);
+				this->runAction(turnAction);
 			}
 
 			CCPoint RoomCard::genInitPosition()
