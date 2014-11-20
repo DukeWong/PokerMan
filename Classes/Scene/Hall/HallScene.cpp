@@ -248,6 +248,7 @@ void HallScene::redButonCallback(CCEvent* pEvent)
 	CCScene *pScene = CCScene::create();
 	TexaPoker::RoomM::Scene::RoomMScene *layer = TexaPoker::RoomM::Scene::RoomMScene::create();
 	pScene->addChild(layer);
+	CCDirector::sharedDirector()->getTouchDispatcher()->removeAllDelegates();
 	CCDirector::sharedDirector()->replaceScene(pScene);
 }
 

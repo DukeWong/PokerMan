@@ -111,6 +111,7 @@ namespace TexaPoker{
 				CCScene *pScene = CCScene::create();
 				HallScene *layer = HallScene::create();
 				pScene->addChild(layer);
+				CCDirector::sharedDirector()->getTouchDispatcher()->removeAllDelegates();
 				CCDirector::sharedDirector()->replaceScene(pScene);
 			}
 
