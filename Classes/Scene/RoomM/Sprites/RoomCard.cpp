@@ -14,6 +14,7 @@ namespace TexaPoker{
 				pobSprite->num = cardNum;
 				pobSprite->type = cardType;
 				pobSprite->state = state;
+				pobSprite->name = (*(manager->getCardArrays() + manager->getCardArrayCount(cardNum, cardType))).c_str();
 				if(state == CARD_STATE_BACK)
 				{
 					cardNum = 0;
@@ -48,7 +49,13 @@ namespace TexaPoker{
 			{
 				this->stopAllActions();
 				auto turnAction = CCOrbitCamera::create(0.5f, 0, 1, 270, 90, 0, 0);
-				this->runAction(turnAction);
+				this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), NULL));
+			}
+
+			void RoomCard::turnOverBackFinished()
+			{
+				CCSpriteFrame *pSpriteFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name);
+				this->setDisplayFrame(pSpriteFrame);
 			}
 
 			CCPoint RoomCard::genInitPosition()

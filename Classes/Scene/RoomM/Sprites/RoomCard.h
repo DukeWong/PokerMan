@@ -21,11 +21,13 @@ namespace TexaPoker{
 						 int num;
 						 int type;
 						 int state;
+						 const char* name;
 			public:
 				static RoomCard* createWithSpriteFrame(TexaPoker::RoomM::Controller::RollingOverManager* manager, int state, int cardNum, int cardType, int tag);
 				void dealCard(CCPoint to, float intervalTime);
 				void dealCardShake(CCPoint to, float intervalTime);
 				void turnOverBack();
+				void turnOverBackFinished();
 				CCRect rect();
 				virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 				virtual void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
