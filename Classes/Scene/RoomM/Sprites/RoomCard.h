@@ -4,9 +4,14 @@
 #include "cocos2d.h"
 #include "Constants.h"
 #include "..\Controller\RollingOverManager.h"
+#include "..\external\Box2D\Box2D.h"
 
 #define CARD_STATE_BACK 0
 #define CARD_STATE_FRONT 1
+
+//box2d
+#define LINEAER_DAMP 1.2
+#define ANGULAR_DAMP 0.8
 
 enum CARD_TYPE{CARD_HERATS = 0, CARD_SPADES, CARD_CLUBS, CARD_DIAMONDS};
 
@@ -22,8 +27,14 @@ namespace TexaPoker{
 						 int type;
 						 int state;
 						 const char* name;
+						 TexaPoker::RoomM::Controller::RollingOverManager* pManager;
+						 //box2d
+						 b2Body* body;
+						 void bindPhysicalBody(CCPoint to);
+
 			public:
 				static RoomCard* createWithSpriteFrame(TexaPoker::RoomM::Controller::RollingOverManager* manager, int state, int cardNum, int cardType, int tag);
+				~RoomCard();
 				void dealCard(CCPoint to, float intervalTime);
 				void dealCardShake(CCPoint to, float intervalTime);
 				void turnOverBack();

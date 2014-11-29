@@ -14,7 +14,13 @@ namespace TexaPoker{
 				,cardPositionSize(0)
 				,currentCardPosition(0)
 			{
+				CC_SAFE_RETAIN(c);
 				initCardData();
+			}
+
+			RollingOverManager::~RollingOverManager()
+			{
+				CC_SAFE_RELEASE(mScene);
 			}
 
 			void RollingOverManager::initCardData()
@@ -363,6 +369,11 @@ namespace TexaPoker{
 			CCPoint* RollingOverManager::getCardPositionArray()
 			{
 				return cardsPosition;
+			}
+
+			CCLayer* RollingOverManager::getMScence()
+			{
+				return mScene;
 			}
 
 		}

@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "CocoStudio\Armature\utils\CCArmatureDataManager.h"
 #include "CocoStudio\Armature\CCArmature.h"
+#include "..\..\Common\External\B2DebugDraw\B2DebugDrawLayer.h"
 
 USING_NS_CC;
 
@@ -36,7 +37,8 @@ namespace TexaPoker{
 
 			RoomMScene::~RoomMScene()
 			{
-
+				delete pWorld;
+				pWorld = NULL;
 			}
 
 			bool RoomMScene::init()
@@ -66,7 +68,21 @@ namespace TexaPoker{
 				pRoomBackground2->setPosition(ccp(visibleSize.width/2 + origin.x, - visibleSize.height/2 + origin.y));
 				this->addChild(pRoomBackground2, SCENE_Z_ORDER_BG, roomBackground2Tag);
 
+				initPhysics();
+
+				this->addChild(TexaPoker::External::B2DebugDraw::B2DebugDrawLayer::create(pWorld, 32), 9999);
+
 				return true;
+			}
+
+			void RoomMScene::initPhysics()
+			{
+				b2Vec2 gravity;
+				gravity.Set(0.0f, -1.0f);
+				pWorld = new b2World(gravity);
+				pWorld->SetAllowSleeping(true);
+				pWorld->SetContinuousPhysics(true);
+
 			}
 
 			void RoomMScene::onEnter()
@@ -144,8 +160,22 @@ namespace TexaPoker{
 
 			void RoomMScene::update(float data)
 			{
-				((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground1Tag)))->moveOn();
-				((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground2Tag)))->moveOn();
+			//	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground1Tag)))->moveOn();
+			//	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground2Tag)))->moveOn();
+
+				pWorld->Step(data, VELOCITY_ITERATIONS, POSITION_ITERATIONS); 
+			if(pWorld != NULL)
+				{
+					for(b2Body* b = pWorld->GetBodyList(); b; b = b->GetNext())  
+					{  
+						if(b->GetUserData() != NULL)  
+						{  
+							CCSprite* sprite = (CCSprite*)b->GetUserData();  
+							CCLOG("x%f,y%f", b->GetPosition().x, b->GetPosition().y);
+							sprite->setPosition(ccp(b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO));   
+						}  
+					} 
+				} 
 			}
 
 			void RoomMScene::initCards(float data)
@@ -156,6 +186,11 @@ namespace TexaPoker{
 			TexaPoker::RoomM::Controller::RollingOverManager* RoomMScene::getPRManager()
 			{
 				return pRManager;
+			}
+
+			b2World* RoomMScene::getWorld()
+			{
+				return pWorld;
 			}
 		}}}
 

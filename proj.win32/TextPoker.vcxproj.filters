@@ -37,6 +37,12 @@
     <Filter Include="Classes\Common\Util">
       <UniqueIdentifier>{0eebaad8-33a4-4db5-badc-65967fa168d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Classes\Common\External">
+      <UniqueIdentifier>{9f2a87b6-7d90-456d-ba9f-5a27c29fa191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Common\External\B2DebugDraw">
+      <UniqueIdentifier>{0135d15c-4f2e-422c-81ed-8158f910ab88}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -68,6 +74,12 @@
     </ClCompile>
     <ClCompile Include="..\Classes\Common\Util\BaseUtil.cpp">
       <Filter>Classes\Common\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Common\External\B2DebugDraw\B2DebugDrawLayer.cpp">
+      <Filter>Classes\Common\External\B2DebugDraw</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Common\External\B2DebugDraw\GLES-Render.cpp">
+      <Filter>Classes\Common\External\B2DebugDraw</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +115,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Common\Util\BaseUtil.h">
       <Filter>Classes\Common\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\External\B2DebugDraw\B2DebugDrawLayer.h">
+      <Filter>Classes\Common\External\B2DebugDraw</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Common\External\B2DebugDraw\GLES-Render.h">
+      <Filter>Classes\Common\External\B2DebugDraw</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

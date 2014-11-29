@@ -8,11 +8,17 @@
 #include "Controller\RollingOverManager.h"
 #include "..\..\Common\GUI\BaseGUI.h"
 #include "..\..\Common\Action\BaseAction.h"
+#include "..\external\Box2D\Box2D.h"
 
 #define ROOM_STATUS_INIT 0
 #define ROOM_STATUS_CARD_FLOW 1
 
 #define ROOM_INIT_INTERVAL_TIME 0.3F
+/* box2d begin*/
+#define VELOCITY_ITERATIONS 8
+#define POSITION_ITERATIONS 1
+/* box2d end*/
+#
 
 namespace TexaPoker{
 	namespace RoomM{
@@ -31,12 +37,15 @@ namespace TexaPoker{
 				int roomStatus;
 				TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
 				void checkSpritesStatus();
+				//box2d
+				b2World* pWorld; 
 
 
 			public:
 				RoomMScene();
 				~RoomMScene();
-				virtual bool init();  
+				virtual bool init();
+				virtual void initPhysics();
 				CREATE_FUNC(RoomMScene);
 				void onEnter();
 				void onExit();
@@ -45,6 +54,7 @@ namespace TexaPoker{
 				void heartCallback(CCEvent* pEvent);
 				void update(float data);
 				void initCards(float data);
+				b2World* getWorld();
 			};
 		}
 	}

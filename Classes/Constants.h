@@ -108,5 +108,9 @@
 #define CARD_3_10_TAG 332;
 
 /*  Tag end  */
+
+/* box2d begin*/
+#define PTM_RATIO 32
+/* box2d end*/
 #endif
 

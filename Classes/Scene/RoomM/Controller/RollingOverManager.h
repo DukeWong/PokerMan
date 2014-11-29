@@ -9,7 +9,7 @@ USING_NS_CC;
 namespace TexaPoker{
 	namespace RoomM{
 		namespace Controller{
-			class RollingOverManager
+			class RollingOverManager: public CCObject
 			{
 			private:
 				std::string cardsArray[53];
@@ -19,6 +19,7 @@ namespace TexaPoker{
 				int currentCardPosition;
 			public:
 				RollingOverManager(CCLayer * c);
+				~RollingOverManager();
 				void initCardData();
 				void initCards();
 				void addCards(float time);
@@ -29,7 +30,7 @@ namespace TexaPoker{
 				CCPoint* getCardPositionArray();
 				void setCurrentCardPosition(int position);
 				int getCurrentCardPosition();
-				
+				CCLayer* getMScence();
 			};
 		}
 	}
