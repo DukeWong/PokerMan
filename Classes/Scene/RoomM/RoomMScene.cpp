@@ -37,8 +37,17 @@ namespace TexaPoker{
 
 			RoomMScene::~RoomMScene()
 			{
-				delete pWorld;
-				pWorld = NULL;
+				if(pWorld != NULL)
+				{
+					for(b2Body* b = pWorld->GetBodyList(); b; b = b->GetNext())  
+					{  
+						if(b != NULL){
+							pWorld->DestroyBody(b);
+						}
+					} 
+					delete pWorld;
+					pWorld = NULL;
+				} 				
 			}
 
 			bool RoomMScene::init()
@@ -153,6 +162,7 @@ namespace TexaPoker{
 					this->unscheduleUpdate();
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOW){
 					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->playByIndex(0);
+					pRManager->stopAllCardsActions();
 					this->scheduleUpdateWithPriority(0);
 				}
 
@@ -160,18 +170,18 @@ namespace TexaPoker{
 
 			void RoomMScene::update(float data)
 			{
-			//	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground1Tag)))->moveOn();
-			//	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground2Tag)))->moveOn();
+				//	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground1Tag)))->moveOn();
+				//	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground2Tag)))->moveOn();
 
 				pWorld->Step(data, VELOCITY_ITERATIONS, POSITION_ITERATIONS); 
-			if(pWorld != NULL)
+				if(pWorld != NULL)
 				{
 					for(b2Body* b = pWorld->GetBodyList(); b; b = b->GetNext())  
 					{  
 						if(b->GetUserData() != NULL)  
 						{  
 							CCSprite* sprite = (CCSprite*)b->GetUserData();  
-							CCLOG("x%f,y%f", b->GetPosition().x, b->GetPosition().y);
+							//CCLOG("x%f,y%f", b->GetPosition().x, b->GetPosition().y);
 							sprite->setPosition(ccp(b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO));   
 						}  
 					} 

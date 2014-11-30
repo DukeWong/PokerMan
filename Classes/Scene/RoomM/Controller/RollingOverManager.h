@@ -13,6 +13,7 @@ namespace TexaPoker{
 			{
 			private:
 				std::string cardsArray[53];
+				std::vector <int> cardsTagArray;
 				CCPoint cardsPosition[45];
 				CCLayer *mScene;
 				int cardPositionSize;
@@ -23,6 +24,7 @@ namespace TexaPoker{
 				void initCardData();
 				void initCards();
 				void addCards(float time);
+				void stopAllCardsActions();
 				int getCardArrayCount(int cardNum, int cardType);
 				std::string* getCardArrays();
 				int getCardTag(int type, int num);

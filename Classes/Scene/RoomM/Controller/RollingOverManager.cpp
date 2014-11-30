@@ -186,43 +186,43 @@ namespace TexaPoker{
 					switch (num)
 					{
 					case 1:
-						tag = CARD_CLUBS_TAG(1);
+						tag = CARD_DIAMONDS_TAG(1);
 						break;
 					case 2:
-						tag = CARD_CLUBS_TAG(2);
+						tag = CARD_DIAMONDS_TAG(2);
 						break;
 					case 3:
-						tag = CARD_CLUBS_TAG(3);
+						tag = CARD_DIAMONDS_TAG(3);
 						break;
 					case 4:
-						tag = CARD_CLUBS_TAG(4);
+						tag = CARD_DIAMONDS_TAG(4);
 						break;
 					case 5:
-						tag = CARD_CLUBS_TAG(5);
+						tag = CARD_DIAMONDS_TAG(5);
 						break;
 					case 6:
-						tag = CARD_CLUBS_TAG(6);
+						tag = CARD_DIAMONDS_TAG(6);
 						break;
 					case 7:
-						tag = CARD_CLUBS_TAG(7);
+						tag = CARD_DIAMONDS_TAG(7);
 						break;
 					case 8:
-						tag = CARD_CLUBS_TAG(8);
+						tag = CARD_DIAMONDS_TAG(8);
 						break;
 					case 9:
-						tag = CARD_CLUBS_TAG(9);
+						tag = CARD_DIAMONDS_TAG(9);
 						break;
 					case 10:
-						tag = CARD_CLUBS_TAG(10);
+						tag = CARD_DIAMONDS_TAG(10);
 						break;
 					case 11:
-						tag = CARD_CLUBS_TAG(11);
+						tag = CARD_DIAMONDS_TAG(11);
 						break;
 					case 12:
-						tag = CARD_CLUBS_TAG(12);
+						tag = CARD_DIAMONDS_TAG(12);
 						break;
 					case 13:
-						tag = CARD_CLUBS_TAG(13);
+						tag = CARD_DIAMONDS_TAG(13);
 						break;
 					default:
 						break;
@@ -231,43 +231,43 @@ namespace TexaPoker{
 					switch (num)
 					{
 					case 1:
-						tag = CARD_CLUBS_TAG(1);
+						tag = CARD_HEARTS_TAG(1);
 						break;
 					case 2:
-						tag = CARD_CLUBS_TAG(2);
+						tag = CARD_HEARTS_TAG(2);
 						break;
 					case 3:
-						tag = CARD_CLUBS_TAG(3);
+						tag = CARD_HEARTS_TAG(3);
 						break;
 					case 4:
-						tag = CARD_CLUBS_TAG(4);
+						tag = CARD_HEARTS_TAG(4);
 						break;
 					case 5:
-						tag = CARD_CLUBS_TAG(5);
+						tag = CARD_HEARTS_TAG(5);
 						break;
 					case 6:
-						tag = CARD_CLUBS_TAG(6);
+						tag = CARD_HEARTS_TAG(6);
 						break;
 					case 7:
-						tag = CARD_CLUBS_TAG(7);
+						tag = CARD_HEARTS_TAG(7);
 						break;
 					case 8:
-						tag = CARD_CLUBS_TAG(8);
+						tag = CARD_HEARTS_TAG(8);
 						break;
 					case 9:
-						tag = CARD_CLUBS_TAG(9);
+						tag = CARD_HEARTS_TAG(9);
 						break;
 					case 10:
-						tag = CARD_CLUBS_TAG(10);
+						tag = CARD_HEARTS_TAG(10);
 						break;
 					case 11:
-						tag = CARD_CLUBS_TAG(11);
+						tag = CARD_HEARTS_TAG(11);
 						break;
 					case 12:
-						tag = CARD_CLUBS_TAG(12);
+						tag = CARD_HEARTS_TAG(12);
 						break;
 					case 13:
-						tag = CARD_CLUBS_TAG(13);
+						tag = CARD_HEARTS_TAG(13);
 						break;
 					default:
 						break;
@@ -276,43 +276,43 @@ namespace TexaPoker{
 					switch (num)
 					{
 					case 1:
-						tag = CARD_CLUBS_TAG(1);
+						tag = CARD_SPADE_TAG(1);
 						break;
 					case 2:
-						tag = CARD_CLUBS_TAG(2);
+						tag = CARD_SPADE_TAG(2);
 						break;
 					case 3:
-						tag = CARD_CLUBS_TAG(3);
+						tag = CARD_SPADE_TAG(3);
 						break;
 					case 4:
-						tag = CARD_CLUBS_TAG(4);
+						tag = CARD_SPADE_TAG(4);
 						break;
 					case 5:
-						tag = CARD_CLUBS_TAG(5);
+						tag = CARD_SPADE_TAG(5);
 						break;
 					case 6:
-						tag = CARD_CLUBS_TAG(6);
+						tag = CARD_SPADE_TAG(6);
 						break;
 					case 7:
-						tag = CARD_CLUBS_TAG(7);
+						tag = CARD_SPADE_TAG(7);
 						break;
 					case 8:
-						tag = CARD_CLUBS_TAG(8);
+						tag = CARD_SPADE_TAG(8);
 						break;
 					case 9:
-						tag = CARD_CLUBS_TAG(9);
+						tag = CARD_SPADE_TAG(9);
 						break;
 					case 10:
-						tag = CARD_CLUBS_TAG(10);
+						tag = CARD_SPADE_TAG(10);
 						break;
 					case 11:
-						tag = CARD_CLUBS_TAG(11);
+						tag = CARD_SPADE_TAG(11);
 						break;
 					case 12:
-						tag = CARD_CLUBS_TAG(12);
+						tag = CARD_SPADE_TAG(12);
 						break;
 					case 13:
-						tag = CARD_CLUBS_TAG(13);
+						tag = CARD_SPADE_TAG(13);
 						break;
 					default:
 						break;
@@ -321,6 +321,8 @@ namespace TexaPoker{
 				return tag;
 
 			}
+
+			//this 不再是 rollingOverManager
 			void RollingOverManager::addCards(float time)
 			{
 				int currentCardPosition = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCurrentCardPosition();
@@ -330,15 +332,37 @@ namespace TexaPoker{
 				CCPoint* positionArray = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCardPositionArray();
 				//CCLog("--- currentP %d SIze %d", currentCardPosition, cardPositionSize);
 				//CCLog("x %d y %d", (positionArray + currentCardPosition)->x, (positionArray + currentCardPosition)->y);
-				int type = CARD_TYPE(TexaPoker::BaseUtil::Num::genRand(0, 4));
-				int num = CARD_TYPE(TexaPoker::BaseUtil::Num::genRand(1, 13));
-				int tempTag = getCardTag(type, num);
+				int tempTag = 0;
+				int type = 0;
+				int num = 0;
+				//保证卡牌tag不一致
+				for(;;)
+				{
+					type = CARD_TYPE(TexaPoker::BaseUtil::Num::genRand(0, 4));
+					num = CARD_TYPE(TexaPoker::BaseUtil::Num::genRand(1, 13));
+					tempTag = getCardTag(type, num);
+					vector<int>::iterator ret;
+					ret = std::find(((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->cardsTagArray.begin(), ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->cardsTagArray.end(), tempTag);
+					if(ret == ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->cardsTagArray.end())
+						break;
+				}
+				((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->cardsTagArray. push_back(tempTag);
 				TexaPoker::RoomM::Sprites::RoomCard* pcard = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame( ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager() , CARD_STATE_BACK, num, type, tempTag);
 				pcard->setPosition(pcard->genInitPosition());
-				CCDirector::sharedDirector()->getRunningScene()->addChild(pcard, SCENE_Z_ORDER_FRONT);
+				CCDirector::sharedDirector()->getRunningScene()->addChild(pcard, SCENE_Z_ORDER_FRONT, tempTag);
 				CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(pcard, 0, false);
 				pcard->dealCardShake(ccp((positionArray + currentCardPosition)->x, (positionArray + currentCardPosition)->y), 0.1);
 				((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->setCurrentCardPosition(currentCardPosition + 1);
+			}
+
+			void RollingOverManager::stopAllCardsActions()
+			{
+				for(vector<int>::iterator it = this->cardsTagArray.begin(); 
+					it !=this->cardsTagArray.end(); it++)
+				{  
+					CCDirector::sharedDirector()->getRunningScene()->getChildByTag(*it)->stopAllActions();
+				} 
+
 			}
 
 			int RollingOverManager::getCardArrayCount(int num, int type)
