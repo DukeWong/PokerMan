@@ -92,6 +92,19 @@ namespace TexaPoker{
 				pWorld->SetAllowSleeping(true);
 				pWorld->SetContinuousPhysics(true);
 
+				b2BodyDef bodyDef;
+				bodyDef.type = b2_staticBody;
+				bodyDef.position.Set(800/PTM_RATIO, 50/PTM_RATIO);
+				b2Body *body = pWorld->CreateBody(&bodyDef);
+
+				b2PolygonShape polygonShape;
+				b2FixtureDef fixtureDef;
+				polygonShape.SetAsBox(14, 0.1);
+
+				fixtureDef.shape = &polygonShape;
+
+				body->CreateFixture(&fixtureDef);
+
 			}
 
 			void RoomMScene::onEnter()
