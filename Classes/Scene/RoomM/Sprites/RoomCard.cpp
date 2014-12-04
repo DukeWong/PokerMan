@@ -60,7 +60,7 @@ namespace TexaPoker{
 
 				fixtureDef.shape = &polygonShape;
 				fixtureDef.density = num;
-				fixtureDef.restitution = 0.5f;
+				fixtureDef.restitution = 0.8f;
 
 				body->CreateFixture(&fixtureDef);
 				body->SetUserData(this);

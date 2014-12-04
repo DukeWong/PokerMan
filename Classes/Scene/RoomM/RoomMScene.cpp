@@ -198,7 +198,8 @@ namespace TexaPoker{
 						{  
 							CCSprite* sprite = (CCSprite*)b->GetUserData();  
 							//CCLOG("x%f,y%f", b->GetPosition().x, b->GetPosition().y);
-							sprite->setPosition(ccp(b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO));   
+							sprite->setPosition(ccp(b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO)); 
+							sprite->setRotation(-1 * CC_RADIANS_TO_DEGREES(b->GetAngle()));
 						}  
 					} 
 				} 
