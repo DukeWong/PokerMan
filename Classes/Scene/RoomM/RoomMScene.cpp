@@ -92,6 +92,9 @@ namespace TexaPoker{
 				pWorld->SetAllowSleeping(true);
 				pWorld->SetContinuousPhysics(true);
 
+				b2BodyDef bodyGroundDef;
+				m_groundBody = pWorld->CreateBody(&bodyGroundDef);
+
 				b2BodyDef bodyDef;
 				bodyDef.type = b2_staticBody;
 				bodyDef.position.Set(800/PTM_RATIO, 50/PTM_RATIO);
@@ -214,6 +217,11 @@ namespace TexaPoker{
 			b2World* RoomMScene::getWorld()
 			{
 				return pWorld;
+			}
+
+			b2Body* RoomMScene::getGroundBody()
+			{
+				return m_groundBody;
 			}
 		}}}
 

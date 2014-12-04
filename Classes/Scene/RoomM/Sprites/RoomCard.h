@@ -30,6 +30,7 @@ namespace TexaPoker{
 						 TexaPoker::RoomM::Controller::RollingOverManager* pManager;
 						 //box2d
 						 b2Body* body;
+						 b2MouseJoint* pMouseJoint;
 						 void bindPhysicalBody(CCPoint to);
 
 			public:
@@ -42,6 +43,7 @@ namespace TexaPoker{
 				CCRect rect();
 				virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 				virtual void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
+				virtual void ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 				CCPoint genInitPosition();
 
 				//CC_SYNTHESIZE_READONLY(int, tag, Tag);

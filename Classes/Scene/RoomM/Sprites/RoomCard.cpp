@@ -15,6 +15,8 @@ namespace TexaPoker{
 				pobSprite->num = cardNum;
 				pobSprite->type = cardType;
 				pobSprite->state = state;
+				pobSprite->body = NULL;
+				pobSprite->pMouseJoint = NULL;
 				CC_SAFE_RETAIN(manager);
 				pobSprite->name = (*(manager->getCardArrays() + manager->getCardArrayCount(cardNum, cardType))).c_str();
 				pobSprite->pManager = manager;
@@ -44,6 +46,7 @@ namespace TexaPoker{
 			{
 				b2BodyDef bodyDef;
 				bodyDef.type = b2_dynamicBody;
+				//bodyDef.bullet = true;
 				bodyDef.position.Set(to.x/PTM_RATIO, to.y/PTM_RATIO);
 
 				body = ((TexaPoker::RoomM::Scene::RoomMScene*)pManager->getMScence())->getWorld()->CreateBody(&bodyDef);
@@ -57,7 +60,7 @@ namespace TexaPoker{
 
 				fixtureDef.shape = &polygonShape;
 				fixtureDef.density = num;
-				fixtureDef.restitution = 1;
+				fixtureDef.restitution = 0.5f;
 
 				body->CreateFixture(&fixtureDef);
 				body->SetUserData(this);
@@ -108,14 +111,36 @@ namespace TexaPoker{
 				CCPoint touchLocation= touch->getLocation();
 				CCRect r = this->rect();
 				if(r.containsPoint(touchLocation)){
-					turnOverBack();
+					//turnOverBack();
+					b2MouseJointDef md;
+					md.bodyA = ((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getGroundBody();
+					md.bodyB = body;
+					md.target = b2Vec2(touchLocation.x/PTM_RATIO, touchLocation.y/PTM_RATIO);
+					md.maxForce = 1000.0f * body->GetMass();
+					pMouseJoint = (b2MouseJoint*)body->GetWorld()->CreateJoint(&md);
 				}	
 				return true;
 			}
 
 			void RoomCard::ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
 			{
+				if (pMouseJoint)
+				{
+					body->GetWorld()->DestroyJoint(pMouseJoint);
+					pMouseJoint = NULL;
+				}
+			}
 
+			void RoomCard::ccTouchMoved(cocos2d::CCTouch* touch, cocos2d::CCEvent* event)
+			{
+				CCPoint touchLocation= touch->getLocation();
+				CCRect r = this->rect();
+				if(r.containsPoint(touchLocation)){					
+					if (pMouseJoint)
+					{
+						pMouseJoint->SetTarget(b2Vec2(touchLocation.x/PTM_RATIO, touchLocation.y/PTM_RATIO));
+					}
+				}	
 			}
 
 		}}}

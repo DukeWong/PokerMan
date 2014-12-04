@@ -39,6 +39,7 @@ namespace TexaPoker{
 				void checkSpritesStatus();
 				//box2d
 				b2World* pWorld; 
+				b2Body* m_groundBody;
 
 
 			public:
@@ -55,6 +56,7 @@ namespace TexaPoker{
 				void update(float data);
 				void initCards(float data);
 				b2World* getWorld();
+				b2Body* getGroundBody();
 			};
 		}
 	}
