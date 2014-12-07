@@ -79,6 +79,7 @@ namespace TexaPoker{
 
 				initPhysics();
 
+				//¿ªÆôdebug Draw
 				this->addChild(TexaPoker::External::B2DebugDraw::B2DebugDrawLayer::create(pWorld, 32), 9999);
 
 				return true;
@@ -96,17 +97,29 @@ namespace TexaPoker{
 				m_groundBody = pWorld->CreateBody(&bodyGroundDef);
 
 				b2BodyDef bodyDef;
-				bodyDef.type = b2_staticBody;
-				bodyDef.position.Set(800/PTM_RATIO, 50/PTM_RATIO);
-				b2Body *body = pWorld->CreateBody(&bodyDef);
-
 				b2PolygonShape polygonShape;
 				b2FixtureDef fixtureDef;
-				polygonShape.SetAsBox(14, 0.1);
 
+				bodyDef.type = b2_staticBody;
+				bodyDef.position.Set(800/PTM_RATIO, 50/PTM_RATIO);
+				b2Body *bodyDown = pWorld->CreateBody(&bodyDef);
+				polygonShape.SetAsBox(14, 0.01);
 				fixtureDef.shape = &polygonShape;
+				bodyDown->CreateFixture(&fixtureDef);
 
-				body->CreateFixture(&fixtureDef);
+				bodyDef.type = b2_staticBody;
+				bodyDef.position.Set(360/PTM_RATIO, 700/PTM_RATIO);
+				b2Body *bodyLeft = pWorld->CreateBody(&bodyDef);
+				polygonShape.SetAsBox(0.01, 20);
+				fixtureDef.shape = &polygonShape;
+				bodyLeft->CreateFixture(&fixtureDef);
+
+				bodyDef.type = b2_staticBody;
+				bodyDef.position.Set(1250/PTM_RATIO, 700/PTM_RATIO);
+				b2Body *bodyRight = pWorld->CreateBody(&bodyDef);
+				polygonShape.SetAsBox(0.01, 20);
+				fixtureDef.shape = &polygonShape;
+				bodyRight->CreateFixture(&fixtureDef);
 
 			}
 

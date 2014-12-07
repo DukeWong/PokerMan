@@ -85,6 +85,7 @@ namespace TexaPoker{
 				this->stopAllActions();
 				auto turnAction = CCOrbitCamera::create(0.5f, 0, 1, 270, 90, 0, 0);
 				this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), NULL));
+				this->state = CARD_STATE_FRONT;
 			}
 
 			void RoomCard::turnOverBackFinished()
@@ -111,13 +112,17 @@ namespace TexaPoker{
 				CCPoint touchLocation= touch->getLocation();
 				CCRect r = this->rect();
 				if(r.containsPoint(touchLocation)){
-					//turnOverBack();
-					b2MouseJointDef md;
-					md.bodyA = ((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getGroundBody();
-					md.bodyB = body;
-					md.target = b2Vec2(touchLocation.x/PTM_RATIO, touchLocation.y/PTM_RATIO);
-					md.maxForce = 1000.0f * body->GetMass();
-					pMouseJoint = (b2MouseJoint*)body->GetWorld()->CreateJoint(&md);
+					if(state == CARD_STATE_BACK)
+					{
+						turnOverBack();
+					}else{
+						b2MouseJointDef md;
+						md.bodyA = ((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getGroundBody();
+						md.bodyB = body;
+						md.target = b2Vec2(touchLocation.x/PTM_RATIO, touchLocation.y/PTM_RATIO);
+						md.maxForce = 1000.0f * body->GetMass();
+						pMouseJoint = (b2MouseJoint*)body->GetWorld()->CreateJoint(&md);
+					}
 				}	
 				return true;
 			}
@@ -135,12 +140,12 @@ namespace TexaPoker{
 			{
 				CCPoint touchLocation= touch->getLocation();
 				CCRect r = this->rect();
-				if(r.containsPoint(touchLocation)){					
+			//	if(r.containsPoint(touchLocation)){					
 					if (pMouseJoint)
 					{
 						pMouseJoint->SetTarget(b2Vec2(touchLocation.x/PTM_RATIO, touchLocation.y/PTM_RATIO));
 					}
-				}	
+			//	}	
 			}
 
 		}}}
