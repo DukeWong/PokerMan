@@ -33,8 +33,8 @@ namespace TexaPoker{
 		public :
 			virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 			virtual void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
-			virtual void BaseArmatureButton::onEnter();
-			virtual void BaseArmatureButton::onExit();
+			virtual void onEnter();
+			virtual void onExit();
 			static BaseArmatureButton* create(float scale, const char *name, int nPriority, CCObject* mTarget = NULL, SEL_EventHandler mHandler = NULL);
 			void setPriority(int nPriority);
 			int getPriority();
