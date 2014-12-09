@@ -22,6 +22,7 @@ private:
 	TexaPoker::BaseGUI::BaseMoveButton  * pHallButtonBlue2Behind1;
 	TexaPoker::BaseGUI::BaseMoveButton  * pHallButtonBlue2Behind2;
 	TexaPoker::BaseGUI::BaseMoveButton  * pHallButtonBlue2Behind3;
+	CCNode * heartParticle;
 	CCSprite* pHallFace;
 	CCSprite* pHallCoins;
 	CCLabelTTF* pUserName;

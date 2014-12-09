@@ -22,6 +22,7 @@ CCScene* HallScene::scene()
 
 HallScene::HallScene()
 	:pHallBackground(CCSprite::create(HALL_PATH_CONNECT(/hall_function_bg.png)))
+	,heartParticle(CCNode::create())
 	,pHallFace(CCSprite::create(HALL_PATH_CONNECT(/men_head.png)))
 	,pHallCoins(CCSprite::create(HALL_PATH_CONNECT(/hall_function_coin.png)))
 	,pUserName(CCLabelTTF::create("Poker Face", "Arial", 26))
@@ -188,6 +189,12 @@ bool HallScene::init()
 	pHallGameBg->setScale(0.82f);
 	pHallGameBg->setPosition(ccp(origin.x + visibleSize.width/7, visibleSize.height/2 - visibleSize.height/10));
 	this->addChild(pHallGameBg, 1);
+
+	CCParticleSystemQuad *heartsP = CCParticleSystemQuad::create(HALL_PARTICEL_PATH_CONNECT(/girl_heart/heart.plist)); 
+	heartsP->setBlendAdditive(false);//ÊÇ·ñ»ìºÏ 
+	heartsP->setPosition(ccp( 835, 500));
+	heartParticle->addChild(heartsP);
+	addChild(heartParticle, SCENE_Z_ORDER_BG + 1);
 
 	this->setKeypadEnabled(true);
 

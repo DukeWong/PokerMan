@@ -114,6 +114,13 @@ namespace TexaPoker{
 				if(r.containsPoint(touchLocation)){
 					if(state == CARD_STATE_BACK)
 					{
+						CCNode * parent = CCNode::create();
+						CCParticleSystemQuad *exploding_ring = CCParticleSystemQuad::create(ROOM_PARTICEL_PATH_CONNECT(/exploding_ring/exploding_ring.plist)); 
+						exploding_ring->setBlendAdditive(false);//ÊÇ·ñ»ìºÏ 
+						exploding_ring->setPosition(ccp(touchLocation.x/PTM_RATIO, touchLocation.y/PTM_RATIO));
+						parent->addChild(exploding_ring);
+						addChild(parent, SCENE_Z_ORDER_FRONT);
+
 						turnOverBack();
 					}else{
 						b2MouseJointDef md;
