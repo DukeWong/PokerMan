@@ -1,13 +1,13 @@
 #ifndef __TEXTPOKER_CONSTANT_H__
 #define __TEXTPOKER_CONSTANT_H__
 
-#define HALL_PATH "/hall"
-#define HALL_SPRITE_PATH "/hall/sprites"
+#define HALL_PATH "hall"
+#define HALL_SPRITE_PATH "hall/sprites"
 #define HALL_PATH_CONNECT(path) HALL_PATH#path
 #define HALL_SPRITE_PATH_CONNECT(path) HALL_SPRITE_PATH#path
 
-#define ROOM_M_PATH "/room_m"
-#define ROOM_M_SPRITE_PATH "/room_m/sprites"
+#define ROOM_M_PATH "room_m"
+#define ROOM_M_SPRITE_PATH "room_m/sprites"
 #define ROOM_M_PATH_CONNECT(path) ROOM_M_PATH#path
 #define ROOM_M_SPRITE_PATH_CONNECT(path) ROOM_M_SPRITE_PATH#path
 

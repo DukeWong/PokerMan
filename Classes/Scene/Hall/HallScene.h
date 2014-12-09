@@ -30,6 +30,7 @@ private:
 	TexaPoker::BaseGUI::BaseButton  * pHallButtonRectBlue;
 	CCSprite* pHallGameBg;
 	int HallButtonBlue2Status; //0 ³õÊ¼×´Ì¬ 1»¹Ô­×´Ì¬
+	virtual void keyBackClicked();//Android ·µ»Ø¼ü
 
 public:
 	HallScene();

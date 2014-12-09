@@ -151,6 +151,8 @@ namespace TexaPoker{
 
 				this->scheduleOnce(schedule_selector(RoomMScene::initCards),ROOM_INIT_INTERVAL_TIME);
 
+				this->setKeypadEnabled(true);
+
 				CCLayer::onEnter();
 			}
 
@@ -237,5 +239,10 @@ namespace TexaPoker{
 			{
 				return m_groundBody;
 			}
-		}}}
 
+			void RoomMScene::keyBackClicked()
+			{
+				menuBackCallback(NULL);
+			}
+
+		}}}

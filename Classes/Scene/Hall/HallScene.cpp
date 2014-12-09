@@ -189,6 +189,8 @@ bool HallScene::init()
 	pHallGameBg->setPosition(ccp(origin.x + visibleSize.width/7, visibleSize.height/2 - visibleSize.height/10));
 	this->addChild(pHallGameBg, 1);
 
+	this->setKeypadEnabled(true);
+
 	return true;
 }
 
@@ -252,4 +254,8 @@ void HallScene::redButonCallback(CCEvent* pEvent)
 	CCDirector::sharedDirector()->replaceScene(pScene);
 }
 
+void HallScene::keyBackClicked()
+{
+	menuCloseCallback(NULL);
+}
 

@@ -37,6 +37,7 @@ namespace TexaPoker{
 				int roomStatus;
 				TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
 				void checkSpritesStatus();
+				virtual void keyBackClicked();//Android ·µ»Ø¼ü
 				//box2d
 				b2World* pWorld; 
 				b2Body* m_groundBody;
