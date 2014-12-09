@@ -92,6 +92,7 @@ namespace TexaPoker{
 				pWorld = new b2World(gravity);
 				pWorld->SetAllowSleeping(true);
 				pWorld->SetContinuousPhysics(true);
+				pWorld->SetContactListener(this);
 
 				b2BodyDef bodyGroundDef;
 				m_groundBody = pWorld->CreateBody(&bodyGroundDef);
@@ -243,6 +244,16 @@ namespace TexaPoker{
 			void RoomMScene::keyBackClicked()
 			{
 				menuBackCallback(NULL);
+			}
+			
+			void RoomMScene::BeginContact(b2Contact* contact)
+			{
+			
+			}
+			
+			void RoomMScene::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
+			{
+			
 			}
 
 		}}}

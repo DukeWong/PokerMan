@@ -23,7 +23,7 @@
 namespace TexaPoker{
 	namespace RoomM{
 		namespace Scene{
-			class RoomMScene : public cocos2d::CCLayer
+			class RoomMScene : public cocos2d::CCLayer , public b2ContactListener 
 			{
 			private:
 				CCSize visibleSize;
@@ -38,6 +38,8 @@ namespace TexaPoker{
 				TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
 				void checkSpritesStatus();
 				virtual void keyBackClicked();//Android ·µ»Ø¼ü
+				virtual void BeginContact(b2Contact* contact);
+				virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
 				//box2d
 				b2World* pWorld; 
 				b2Body* m_groundBody;
