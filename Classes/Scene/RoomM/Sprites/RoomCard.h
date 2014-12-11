@@ -36,6 +36,7 @@ namespace TexaPoker{
 			public:
 				static RoomCard* createWithSpriteFrame(TexaPoker::RoomM::Controller::RollingOverManager* manager, int state, int cardNum, int cardType, int tag);
 				~RoomCard();
+				int getNum();
 				void dealCard(CCPoint to, float intervalTime);
 				void dealCardShake(CCPoint to, float intervalTime);
 				void turnOverBack();

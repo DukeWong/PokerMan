@@ -3,6 +3,7 @@
 #include "CocoStudio\Armature\utils\CCArmatureDataManager.h"
 #include "CocoStudio\Armature\CCArmature.h"
 #include "..\..\Common\External\B2DebugDraw\B2DebugDrawLayer.h"
+#include "..\..\Scene\RoomM\Sprites\RoomCard.h"
 
 USING_NS_CC;
 
@@ -248,7 +249,44 @@ namespace TexaPoker{
 			
 			void RoomMScene::BeginContact(b2Contact* contact)
 			{
-			
+				b2Body *bodyA = contact->GetFixtureA()->GetBody();
+				b2Body *bodyB = contact->GetFixtureB()->GetBody();
+				
+				TexaPoker::RoomM::Sprites::RoomCard *spriteA = reinterpret_cast<TexaPoker::RoomM::Sprites::RoomCard *>(bodyA->GetUserData());
+				TexaPoker::RoomM::Sprites::RoomCard *spriteB = reinterpret_cast<TexaPoker::RoomM::Sprites::RoomCard *>(bodyB->GetUserData());
+
+				if(spriteA == NULL && spriteB == NULL)
+				{
+					return;
+				}
+
+				if(spriteA == NULL && spriteB != NULL)
+				{
+					CCFiniteTimeAction* pFadeOut = CCSequence::create(CCFadeOut::create(2), CCCallFuncN::create(spriteB,  callfuncN_selector(RoomMScene::finishFadeOutAction)), NULL);
+				}
+
+				if(spriteA != NULL && spriteB == NULL)
+				{
+					CCFiniteTimeAction* pFadeOut = CCSequence::create(CCFadeOut::create(2), CCCallFuncN::create(spriteA,  callfuncN_selector(RoomMScene::finishFadeOutAction)), NULL);
+				}
+
+				if(spriteA != NULL && spriteB != NULL)
+				{
+					TexaPoker::RoomM::Sprites::RoomCard* sprite = spriteA->getNum() > spriteB->getNum() ? spriteB : spriteA;
+					CCFiniteTimeAction* pFadeOut = CCSequence::create(CCFadeOut::create(2), CCCallFuncN::create(sprite,  callfuncN_selector(RoomMScene::finishFadeOutAction)), NULL);
+					sprite->runAction(pFadeOut);
+				}
+				
+
+			}
+
+			void RoomMScene::finishFadeOutAction(CCNode* pSender)
+			{
+				TexaPoker::RoomM::Sprites::RoomCard *sprite = dynamic_cast<TexaPoker::RoomM::Sprites::RoomCard *>(pSender);
+				if(sprite != NULL)
+				{
+					CCDirector::sharedDirector()->getRunningScene()->removeChildByTag(sprite->getTag());
+				}
 			}
 			
 			void RoomMScene::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)

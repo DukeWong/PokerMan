@@ -66,6 +66,11 @@ namespace TexaPoker{
 				body->SetUserData(this);
 			}
 
+			int RoomCard::getNum()
+			{
+				return num;
+			}
+
 			void RoomCard::dealCard(CCPoint to, float intervalTime)
 			{
 				CCActionInterval*  actionTo = CCMoveTo::create(intervalTime, to);
@@ -140,17 +145,12 @@ namespace TexaPoker{
 			{
 				CCPoint touchLocation= touch->getLocation();
 				CCRect r = this->rect();
-				if(r.containsPoint(touchLocation)){	
-					CCParticleSystemQuad *exploding_ring = CCParticleSystemQuad::create(ROOM_PARTICEL_PATH_CONNECT(/exploding_ring/exploding_ring.plist)); 
-					exploding_ring->setBlendAdditive(true);//ÊÇ·ñ»ìºÏ 
-					exploding_ring->setPosition(ccp(touchLocation.x/PTM_RATIO, touchLocation.y/PTM_RATIO));
-					exploding_ring->setAutoRemoveOnFinish(true);
-					addChild(exploding_ring, SCENE_Z_ORDER_FRONT);
-					}
+				if(r.containsPoint(touchLocation)){						
 					if (pMouseJoint)
 					{
 						pMouseJoint->SetTarget(b2Vec2(touchLocation.x/PTM_RATIO, touchLocation.y/PTM_RATIO));
-					}	
+					}
+				}
 			}
 
 		}}}
