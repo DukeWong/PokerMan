@@ -71,6 +71,16 @@ namespace TexaPoker{
 				return num;
 			}
 
+			int RoomCard::getState()
+			{
+				return state;
+			}
+
+			void RoomCard::setStateDelete()
+			{
+				state = CARD_STATE_DELETE;
+			}
+
 			void RoomCard::dealCard(CCPoint to, float intervalTime)
 			{
 				CCActionInterval*  actionTo = CCMoveTo::create(intervalTime, to);
@@ -120,7 +130,7 @@ namespace TexaPoker{
 					if(state == CARD_STATE_BACK)
 					{
 						turnOverBack();
-					}else{
+					}else if(state == CARD_STATE_FRONT){
 						b2MouseJointDef md;
 						md.bodyA = ((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getGroundBody();
 						md.bodyB = body;

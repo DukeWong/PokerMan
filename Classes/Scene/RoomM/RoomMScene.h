@@ -39,7 +39,7 @@ namespace TexaPoker{
 				void checkSpritesStatus();
 				virtual void keyBackClicked();//Android ·µ»Ø¼ü
 				virtual void BeginContact(b2Contact* contact);
-				void finishFadeOutAction(CCNode* pSender);
+				void finishFadeOutAction(CCNode* pSender, void* data);
 				virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
 				//box2d
 				b2World* pWorld; 
