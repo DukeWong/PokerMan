@@ -14,6 +14,9 @@
 #define ROOM_M_PATH_CONNECT(path) ROOM_M_PATH#path
 #define ROOM_M_SPRITE_PATH_CONNECT(path) ROOM_M_SPRITE_PATH#path
 
+#define AUDIO_PATH "audio"
+#define AUDIO_PATH_CONNECT(path) AUDIO_PATH#path
+
 #define SCENE_Z_ORDER_BG 0
 #define SCENE_Z_ORDER_FRONT SCENE_Z_ORDER_BG + 3
 

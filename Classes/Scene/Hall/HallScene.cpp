@@ -2,6 +2,7 @@
 #include "Constants.h"
 #include "CocoStudio\Armature\utils\CCArmatureDataManager.h"
 #include "CocoStudio\Armature\CCArmature.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -101,11 +102,14 @@ HallScene::HallScene()
 		this,
 		NULL);   
 	pHallButtonRectBlue = TexaPoker::BaseGUI::BaseButton::create(0.8f, pHallButtonRectBlueImage);
+
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/fire_on.wav));
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->setEffectsVolume(1);
 }
 
 HallScene::~HallScene()
 {
-
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->end();
 }
 
 // on "init" you need to initialize your instance
@@ -190,6 +194,7 @@ bool HallScene::init()
 	pHallGameBg->setPosition(ccp(origin.x + visibleSize.width/7, visibleSize.height/2 - visibleSize.height/10));
 	this->addChild(pHallGameBg, 1);
 
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/fire_on.wav));
 	heartParticle->setBlendAdditive(true);//ÊÇ·ñ»ìºÏ 
 	heartParticle->setPosition(ccp( 835, 500));
 	addChild(heartParticle, SCENE_Z_ORDER_BG + 1);

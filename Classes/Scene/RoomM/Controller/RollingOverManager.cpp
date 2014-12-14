@@ -130,7 +130,7 @@ namespace TexaPoker{
 			}
 			void RollingOverManager::initCards()
 			{
-				mScene->schedule(schedule_selector(RollingOverManager::addCards), 0.005f);  
+				mScene->schedule(schedule_selector(RollingOverManager::addCards), 0.15f);  
 			}
 
 			int RollingOverManager::getCardTag(int type, int num)

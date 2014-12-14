@@ -2,6 +2,7 @@
 #include "..\..\..\Common\Util\BaseUtil.h"
 #include "..\..\..\Common\Action\BaseAction.h"
 #include "..\RoomMScene.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -83,12 +84,14 @@ namespace TexaPoker{
 
 			void RoomCard::dealCard(CCPoint to, float intervalTime)
 			{
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/deal_card.wav));
 				CCActionInterval*  actionTo = CCMoveTo::create(intervalTime, to);
 				this->runAction(actionTo);
 			}
 
 			void RoomCard::dealCardShake(CCPoint to, float intervalTime)
 			{
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/deal_card.wav));
 				this->bindPhysicalBody(to);
 				CCActionInterval*  actionTo = CCMoveTo::create(intervalTime, to);
 				TexaPoker::BaseAction::ShakeAction* shake = TexaPoker::BaseAction::ShakeAction::create(99999999999, 1, 1);  //repeat forver
@@ -98,9 +101,10 @@ namespace TexaPoker{
 			void RoomCard::turnOverBack()
 			{
 				this->stopAllActions();
-				CCActionInterval* turnAction = CCOrbitCamera::create(0.5f, 0, 1, 270, 90, 0, 0);
+				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
 				this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), NULL));
 				this->state = CARD_STATE_FRONT;
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
 			}
 
 			void RoomCard::turnOverBackFinished()

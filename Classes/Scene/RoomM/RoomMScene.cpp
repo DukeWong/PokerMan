@@ -4,6 +4,7 @@
 #include "CocoStudio\Armature\CCArmature.h"
 #include "..\..\Common\External\B2DebugDraw\B2DebugDrawLayer.h"
 #include "..\..\Scene\RoomM\Sprites\RoomCard.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -33,7 +34,11 @@ namespace TexaPoker{
 				cocos2d::extension::CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(ROOM_M_SPRITE_PATH_CONNECT(/fire/fire.png), ROOM_M_SPRITE_PATH_CONNECT(/fire/fire.plist), ROOM_M_SPRITE_PATH_CONNECT(/fire/fire.xml));    
 				cocos2d::extension::CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.png), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.plist), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.xml));
 				CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();  
-				cache->addSpriteFramesWithFile(ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.plist), ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.png));  
+				cache->addSpriteFramesWithFile(ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.plist), ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.png));
+
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/deal_card.wav));
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
 			}
 
 			RoomMScene::~RoomMScene()
@@ -264,6 +269,8 @@ namespace TexaPoker{
 						sprite->setStateDelete();
 						CCFiniteTimeAction* pFadeOut = CCSequence::create(CCFadeOut::create(2), CCCallFuncND::create(sprite,  callfuncND_selector(RoomMScene::finishFadeOutAction), (void *)body), NULL);
 						sprite->runAction(pFadeOut);
+
+						CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
 					}
 				}
 
