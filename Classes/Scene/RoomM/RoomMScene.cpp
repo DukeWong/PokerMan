@@ -266,7 +266,7 @@ namespace TexaPoker{
 					b2Body* body = spriteA->getNum() >= spriteB->getNum() ? bodyB : bodyA;
 					if(sprite->getState()== CARD_STATE_FRONT)
 					{
-						sprite->setStateDelete();
+						sprite->setState(CARD_STATE_DELETE);
 						CCFiniteTimeAction* pFadeOut = CCSequence::create(CCFadeOut::create(2), CCCallFuncND::create(sprite,  callfuncND_selector(RoomMScene::finishFadeOutAction), (void *)body), NULL);
 						sprite->runAction(pFadeOut);
 

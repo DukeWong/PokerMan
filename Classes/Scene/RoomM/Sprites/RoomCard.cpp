@@ -77,9 +77,9 @@ namespace TexaPoker{
 				return state;
 			}
 
-			void RoomCard::setStateDelete()
+			void RoomCard::setState(int mState)
 			{
-				state = CARD_STATE_DELETE;
+				state = mState;
 			}
 
 			void RoomCard::dealCard(CCPoint to, float intervalTime)

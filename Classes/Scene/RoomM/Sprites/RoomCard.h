@@ -8,7 +8,7 @@
 
 #define CARD_STATE_BACK 0
 #define CARD_STATE_FRONT 1
-#define CARD_STATE_DELETE 2;
+#define CARD_STATE_DELETE 2
 
 //box2d
 #define LINEAER_DAMP 1.2
@@ -39,7 +39,7 @@ namespace TexaPoker{
 				~RoomCard();
 				int getNum();
 				int getState();
-				void setStateDelete();
+				void setState(int s);
 				void dealCard(CCPoint to, float intervalTime);
 				void dealCardShake(CCPoint to, float intervalTime);
 				void turnOverBack();
