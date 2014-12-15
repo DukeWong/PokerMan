@@ -208,6 +208,7 @@ namespace TexaPoker{
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOW){
 					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->playByIndex(0);
 					pRManager->stopAllCardsActions();
+					this->unscheduleAllSelectors();
 					this->scheduleUpdateWithPriority(0);
 				}
 
