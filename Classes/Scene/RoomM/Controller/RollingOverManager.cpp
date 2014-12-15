@@ -327,10 +327,14 @@ namespace TexaPoker{
 			{
 				int currentCardPosition = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCurrentCardPosition();
 				int cardPositionSize = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCardPositionSize();
-				if(currentCardPosition >= cardPositionSize)
-					return;
-				CCPoint* positionArray = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCardPositionArray();
 				//CCLog("--- currentP %d SIze %d", currentCardPosition, cardPositionSize);
+				if(currentCardPosition >= cardPositionSize)
+				{
+					//CCDirector::sharedDirector()->getScheduler()->unscheduleAll();
+					//CCLOG("return");
+					return;
+				}
+				CCPoint* positionArray = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCardPositionArray();
 				//CCLog("x %d y %d", (positionArray + currentCardPosition)->x, (positionArray + currentCardPosition)->y);
 				int tempTag = 0;
 				int type = 0;

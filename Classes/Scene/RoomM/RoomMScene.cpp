@@ -36,9 +36,16 @@ namespace TexaPoker{
 				CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();  
 				cache->addSpriteFramesWithFile(ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.plist), ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.png));
 
-				CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/deal_card.wav));
-				CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
-				CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
+				if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/deal_card.ogg));
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_turn_over.ogg));
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_fade_out.ogg));
+				}else{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/deal_card.wav));
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
+				}
 			}
 
 			RoomMScene::~RoomMScene()
@@ -270,7 +277,12 @@ namespace TexaPoker{
 						CCFiniteTimeAction* pFadeOut = CCSequence::create(CCFadeOut::create(2), CCCallFuncND::create(sprite,  callfuncND_selector(RoomMScene::finishFadeOutAction), (void *)body), NULL);
 						sprite->runAction(pFadeOut);
 
-						CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
+						if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+						{
+							CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_fade_out.ogg));
+						}else{
+							CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
+						}
 					}
 				}
 
