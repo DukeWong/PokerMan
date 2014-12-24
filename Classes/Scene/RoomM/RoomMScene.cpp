@@ -30,8 +30,7 @@ namespace TexaPoker{
 				fireButtonTag = temp_tag;
 				temp_tag = ROOMM_SCENE_TAG(6);
 				roomMGirlButtonTag = temp_tag;
-
-				cocos2d::extension::CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(ROOM_M_SPRITE_PATH_CONNECT(/fire/fire.png), ROOM_M_SPRITE_PATH_CONNECT(/fire/fire.plist), ROOM_M_SPRITE_PATH_CONNECT(/fire/fire.xml));    
+  
 				cocos2d::extension::CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.png), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.plist), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.xml));
 				CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();  
 				cache->addSpriteFramesWithFile(ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.plist), ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.png));
@@ -151,10 +150,15 @@ namespace TexaPoker{
 				this->addChild(pRoomMGirlButton, SCENE_Z_ORDER_FRONT, roomMGirlButtonTag);
 				pRoomMGirlButton->moveBy(pRoomMGirlButton);
 
-				TexaPoker::BaseGUI::BaseArmatureButton* pFireButton = TexaPoker::BaseGUI::BaseArmatureButton::create(0.7f, "fire", 5, this, NULL);
-				pFireButton->getAnimation()->setAnimationScale(0.5f);
+
+				CCMenuItemImage *pFireImage = CCMenuItemImage::create(
+					ROOM_M_SPRITE_PATH_CONNECT(/fire.png),
+					ROOM_M_SPRITE_PATH_CONNECT(/fire.png),
+					this,
+					NULL);
+				TexaPoker::BaseGUI::BaseButton* pFireButton = TexaPoker::BaseGUI::BaseButton::create(0.7f, pFireImage, this, event_selector(RoomMScene::fireCallback));
 				pFireButton->setAnchorPoint(ccp(0, 0));
-				pFireButton->setPosition(ccp(visibleSize.width/50*43, visibleSize.height/10*9));
+				pFireButton->setPosition(ccp(visibleSize.width/50*44, visibleSize.height/10*9.3));
 				this->addChild(pFireButton, SCENE_Z_ORDER_BUTTON, fireButtonTag);
 
 				TexaPoker::BaseGUI::BaseArmatureButton* pHeartButton = TexaPoker::BaseGUI::BaseArmatureButton::create(0.7f, "heart", 5, this, event_selector(RoomMScene::heartCallback));
@@ -183,6 +187,11 @@ namespace TexaPoker{
 				pScene->addChild(layer);
 				CCDirector::sharedDirector()->getTouchDispatcher()->removeAllDelegates();
 				CCDirector::sharedDirector()->replaceScene(pScene);
+			}
+
+			void RoomMScene::fireCallback(CCEvent* pEvent)
+			{
+				
 			}
 
 			void RoomMScene::heartCallback(CCEvent* pEvent)

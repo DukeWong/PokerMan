@@ -12,6 +12,7 @@
 
 #define ROOM_STATUS_INIT 0
 #define ROOM_STATUS_CARD_FLOW 1
+#define ROOM_STATUS_CARD_FLOAT 2
 
 #define ROOM_INIT_INTERVAL_TIME 0.3F
 /* box2d begin*/
@@ -56,6 +57,7 @@ namespace TexaPoker{
 				void onExit();
 				TexaPoker::RoomM::Controller::RollingOverManager* getPRManager();
 				void menuBackCallback(CCObject* pSender);
+				void fireCallback(CCEvent* pEvent);
 				void heartCallback(CCEvent* pEvent);
 				void update(float data);
 				void initCards(float data);
