@@ -111,15 +111,18 @@ namespace TexaPoker{
 
 			void RoomCard::turnOverBack()
 			{
-				this->stopAllActions();
-				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
-				this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), NULL));
-				this->state = CARD_STATE_FRONT;
-				if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				if(this->state != CARD_STATE_FRONT)
 				{
-					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.ogg));
-				}else{
-					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
+					this->stopAllActions();
+					CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
+					this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), NULL));
+					this->state = CARD_STATE_FRONT;
+					if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+					{
+						CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.ogg));
+					}else{
+						CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
+					}
 				}
 			}
 
@@ -127,6 +130,20 @@ namespace TexaPoker{
 			{
 				CCSpriteFrame *pSpriteFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(name);
 				this->setDisplayFrame(pSpriteFrame);
+			}
+
+			void RoomCard::turnOverBackAndFadeOut()
+			{
+				this->runAction(CCSequence::create(CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBack)), CCFadeOut::create(2), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), NULL));
+			}
+
+			void RoomCard::DestoryBody()
+			{
+				if(body != NULL)
+				{
+					body->GetWorld()->DestroyBody(body);
+				}
+				CCDirector::sharedDirector()->getRunningScene()->removeChildByTag(this->getTag());
 			}
 
 			CCPoint RoomCard::genInitPosition()

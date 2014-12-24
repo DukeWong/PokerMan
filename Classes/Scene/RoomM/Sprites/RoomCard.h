@@ -44,6 +44,8 @@ namespace TexaPoker{
 				void dealCardShake(CCPoint to, float intervalTime);
 				void turnOverBack();
 				void turnOverBackFinished();
+				void turnOverBackAndFadeOut();
+				void DestoryBody();
 				CCRect rect();
 				virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);
 				virtual void ccTouchEnded(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);

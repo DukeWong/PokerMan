@@ -39,9 +39,9 @@ namespace TexaPoker{
 				m_pSelectedItem->activate();
 				this->setScale(defaultScale);
 				//	return CCMenu::ccTouchEnded(touch, event);
-				if(this->mHandler)
+				if(this->mTarget && this->mHandler)
 				{
-					(this->*mHandler)(event);
+					(mTarget->*mHandler)(event);
 				}
 			}
 			m_eState = kCCMenuStateWaiting;

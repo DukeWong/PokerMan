@@ -191,7 +191,11 @@ namespace TexaPoker{
 
 			void RoomMScene::fireCallback(CCEvent* pEvent)
 			{
-				
+				if(roomStatus != ROOM_STATUS_CARD_FLOAT)
+				{
+					roomStatus = ROOM_STATUS_CARD_FLOAT;
+				}
+				checkSpritesStatus();
 			}
 
 			void RoomMScene::heartCallback(CCEvent* pEvent)
@@ -215,10 +219,14 @@ namespace TexaPoker{
 					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->resetScale();
 					this->unscheduleUpdate();
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOW){
+					pWorld->GetGravity().Set(0.0f, -1.0f);
 					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->playByIndex(0);
 					pRManager->stopAllCardsActions();
 					this->unscheduleAllSelectors();
 					this->scheduleUpdateWithPriority(0);
+				}else if(roomStatus == ROOM_STATUS_CARD_FLOAT){
+					pWorld->GetGravity().Set(0.0f, 0.0f);
+					pRManager->turnOverAndFadeOutCards();
 				}
 
 			}

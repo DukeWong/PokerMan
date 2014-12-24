@@ -369,6 +369,19 @@ namespace TexaPoker{
 
 			}
 
+			void RollingOverManager::turnOverAndFadeOutCards()
+			{
+				for(vector<int>::iterator it = this->cardsTagArray.begin(); 
+					it !=this->cardsTagArray.end(); it++)
+				{  
+					TexaPoker::RoomM::Sprites::RoomCard* card = dynamic_cast<TexaPoker::RoomM::Sprites::RoomCard *>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(*it));
+					if(card != NULL)
+					{
+						card->turnOverBackAndFadeOut();
+					}
+				} 
+			}
+
 			int RollingOverManager::getCardArrayCount(int num, int type)
 			{
 				return num + type * 13;
