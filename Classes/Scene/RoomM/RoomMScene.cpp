@@ -16,6 +16,7 @@ namespace TexaPoker{
 				,origin(CCDirector::sharedDirector()->getVisibleOrigin())
 				,roomStatus(ROOM_STATUS_INIT)
 				,pRManager(new TexaPoker::RoomM::Controller::RollingOverManager(this))
+				,gravityOn(false)
 				//,pPoker(CCSprite::create(ROOM_M_PATH_CONNECT(/card_back.png), CCRectMake(0,0,CCDirector::sharedDirector()->getVisibleSize().width,CCDirector::sharedDirector()->getVisibleSize().height)))
 			{
 				int temp_tag = ROOMM_SCENE_TAG(1);
@@ -49,6 +50,7 @@ namespace TexaPoker{
 
 			RoomMScene::~RoomMScene()
 			{
+				this->unscheduleAllSelectors();
 				if(pWorld != NULL)
 				{
 					for(b2Body* b = pWorld->GetBodyList(); b; b = b->GetNext())  
@@ -93,6 +95,9 @@ namespace TexaPoker{
 
 				//开启debug Draw
 				this->addChild(TexaPoker::External::B2DebugDraw::B2DebugDrawLayer::create(pWorld, 32), 9999);
+
+				//开启update()
+				this->scheduleUpdateWithPriority(0);
 
 				return true;
 			}
@@ -217,15 +222,16 @@ namespace TexaPoker{
 				if(roomStatus == ROOM_STATUS_INIT){
 					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->stop();
 					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->resetScale();
-					this->unscheduleUpdate();
+					gravityOn = false;
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOW){
 					pWorld->GetGravity().Set(0.0f, -1.0f);
 					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->playByIndex(0);
 					pRManager->stopAllCardsActions();
-					this->unscheduleAllSelectors();
-					this->scheduleUpdateWithPriority(0);
+					gravityOn = true;
+					//this->unscheduleAllSelectors();
+					//this->scheduleUpdateWithPriority(0);
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOAT){
-					pWorld->GetGravity().Set(0.0f, 0.0f);
+					gravityOn = false;
 					pRManager->turnOverAndFadeOutCards();
 				}
 
@@ -235,21 +241,24 @@ namespace TexaPoker{
 			{
 				//	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground1Tag)))->moveOn();
 				//	((TexaPoker::RoomM::Sprites::RoomBackground*)(this->getChildByTag(roomBackground2Tag)))->moveOn();
-
-				pWorld->Step(data, VELOCITY_ITERATIONS, POSITION_ITERATIONS); 
-				if(pWorld != NULL)
+				if(gravityOn == true)
 				{
-					for(b2Body* b = pWorld->GetBodyList(); b; b = b->GetNext())  
-					{  
-						if(b!= NULL && b->GetUserData() != NULL)  
+					pWorld->Step(data, VELOCITY_ITERATIONS, POSITION_ITERATIONS); 
+
+					if(pWorld != NULL)
+					{
+						for(b2Body* b = pWorld->GetBodyList(); b; b = b->GetNext())  
 						{  
-							CCSprite* sprite = (CCSprite*)b->GetUserData();  
-							//CCLOG("x%f,y%f", b->GetPosition().x, b->GetPosition().y);
-							sprite->setPosition(ccp(b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO)); 
-							sprite->setRotation(-1 * CC_RADIANS_TO_DEGREES(b->GetAngle()));
-						}  
+							if(b!= NULL && b->GetUserData() != NULL)  
+							{  
+								CCSprite* sprite = (CCSprite*)b->GetUserData();  
+								//CCLOG("x%f,y%f", b->GetPosition().x, b->GetPosition().y);
+								sprite->setPosition(ccp(b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO)); 
+								sprite->setRotation(-1 * CC_RADIANS_TO_DEGREES(b->GetAngle()));
+							}  
+						} 
 					} 
-				} 
+				}
 			}
 
 			void RoomMScene::initCards(float data)

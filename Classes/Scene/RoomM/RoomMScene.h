@@ -36,6 +36,7 @@ namespace TexaPoker{
 				int fireButtonTag;
 				int roomMGirlButtonTag;
 				int roomStatus;
+				bool gravityOn;
 				TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
 				void checkSpritesStatus();
 				virtual void keyBackClicked();//Android ·µ»Ø¼ü

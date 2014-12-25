@@ -111,18 +111,15 @@ namespace TexaPoker{
 
 			void RoomCard::turnOverBack()
 			{
-				if(this->state != CARD_STATE_FRONT)
+				this->stopAllActions();
+				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
+				this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), NULL));
+				this->state = CARD_STATE_FRONT;
+				if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 				{
-					this->stopAllActions();
-					CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
-					this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), NULL));
-					this->state = CARD_STATE_FRONT;
-					if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-					{
-						CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.ogg));
-					}else{
-						CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
-					}
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.ogg));
+				}else{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
 				}
 			}
 
@@ -134,7 +131,22 @@ namespace TexaPoker{
 
 			void RoomCard::turnOverBackAndFadeOut()
 			{
-				this->runAction(CCSequence::create(CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBack)), CCFadeOut::create(2), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), NULL));
+				if(this->state != CARD_STATE_FRONT)
+				{
+					this->stopAllActions();
+					CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
+					this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(2), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), NULL));
+					this->state = CARD_STATE_FRONT;
+					if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+					{
+						CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.ogg));
+					}else{
+						CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
+					}
+				}else{
+					this->stopAllActions();
+					this->runAction(CCSequence::create(CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(2), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), NULL));
+				}			
 			}
 
 			void RoomCard::DestoryBody()
