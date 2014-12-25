@@ -5,6 +5,7 @@
 #include "..\..\Common\External\B2DebugDraw\B2DebugDrawLayer.h"
 #include "..\..\Scene\RoomM\Sprites\RoomCard.h"
 #include "SimpleAudioEngine.h"
+#include "Controller\RollingOverManager.h"
 
 USING_NS_CC;
 
@@ -31,8 +32,8 @@ namespace TexaPoker{
 				fireButtonTag = temp_tag;
 				temp_tag = ROOMM_SCENE_TAG(6);
 				roomMGirlButtonTag = temp_tag;
-  
-				cocos2d::extension::CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.png), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.plist), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.xml));
+
+				//cocos2d::extension::CCArmatureDataManager::sharedArmatureDataManager()->addArmatureFileInfo(ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.png), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.plist), ROOM_M_SPRITE_PATH_CONNECT(/heart/heart.xml));
 				CCSpriteFrameCache* cache = CCSpriteFrameCache::sharedSpriteFrameCache();  
 				cache->addSpriteFramesWithFile(ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.plist), ROOM_M_SPRITE_PATH_CONNECT(/cards/img_cards.png));
 
@@ -94,7 +95,7 @@ namespace TexaPoker{
 				initPhysics();
 
 				//开启debug Draw
-				this->addChild(TexaPoker::External::B2DebugDraw::B2DebugDrawLayer::create(pWorld, 32), 9999);
+				//this->addChild(TexaPoker::External::B2DebugDraw::B2DebugDrawLayer::create(pWorld, 32), 9999);
 
 				//开启update()
 				this->scheduleUpdateWithPriority(0);
@@ -163,13 +164,18 @@ namespace TexaPoker{
 					NULL);
 				TexaPoker::BaseGUI::BaseButton* pFireButton = TexaPoker::BaseGUI::BaseButton::create(0.7f, pFireImage, this, event_selector(RoomMScene::fireCallback));
 				pFireButton->setAnchorPoint(ccp(0, 0));
-				pFireButton->setPosition(ccp(visibleSize.width/50*44, visibleSize.height/10*9.3));
+				pFireButton->setPosition(ccp(visibleSize.width/50*43, visibleSize.height/10*9.3));
 				this->addChild(pFireButton, SCENE_Z_ORDER_BUTTON, fireButtonTag);
 
-				TexaPoker::BaseGUI::BaseArmatureButton* pHeartButton = TexaPoker::BaseGUI::BaseArmatureButton::create(0.7f, "heart", 5, this, event_selector(RoomMScene::heartCallback));
-				pHeartButton->getAnimation()->setAnimationScale(0.5f);
+
+				CCMenuItemImage *pHeartImage = CCMenuItemImage::create(
+					ROOM_M_SPRITE_PATH_CONNECT(/heart.png),
+					ROOM_M_SPRITE_PATH_CONNECT(/heart.png),
+					this,
+					NULL);
+				TexaPoker::BaseGUI::BaseButton* pHeartButton = TexaPoker::BaseGUI::BaseButton::create(0.7f, pHeartImage, this, event_selector(RoomMScene::heartCallback));
 				pHeartButton->setAnchorPoint(ccp(0, 0));
-				pHeartButton->setPosition(ccp(visibleSize.width/50*46, visibleSize.height/10*9));
+				pHeartButton->setPosition(ccp(visibleSize.width/50*46, visibleSize.height/10*9.3));
 				this->addChild(pHeartButton, SCENE_Z_ORDER_BUTTON, heartButtonTag);
 
 				this->scheduleOnce(schedule_selector(RoomMScene::initCards),ROOM_INIT_INTERVAL_TIME);
@@ -196,6 +202,8 @@ namespace TexaPoker{
 
 			void RoomMScene::fireCallback(CCEvent* pEvent)
 			{
+				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
+				((TexaPoker::BaseGUI::BaseButton*)(this->getChildByTag(fireButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2), CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&fireButtonTag), NULL));
 				if(roomStatus != ROOM_STATUS_CARD_FLOAT)
 				{
 					roomStatus = ROOM_STATUS_CARD_FLOAT;
@@ -206,6 +214,8 @@ namespace TexaPoker{
 			void RoomMScene::heartCallback(CCEvent* pEvent)
 			{
 				//pHeartButton->getAnimation()->playByIndex(0);
+				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
+				((TexaPoker::BaseGUI::BaseButton*)(this->getChildByTag(heartButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2), CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&heartButtonTag), NULL));
 				if(roomStatus != ROOM_STATUS_CARD_FLOW){
 					roomStatus = ROOM_STATUS_CARD_FLOW;
 				}else{
@@ -220,18 +230,21 @@ namespace TexaPoker{
 			void RoomMScene::checkSpritesStatus()
 			{
 				if(roomStatus == ROOM_STATUS_INIT){
-					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->stop();
-					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->resetScale();
+					//	((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->stop();
+					//	((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->resetScale();
 					gravityOn = false;
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOW){
 					pWorld->GetGravity().Set(0.0f, -1.0f);
-					((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->playByIndex(0);
-					pRManager->stopAllCardsActions();
+					//	((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->playByIndex(0);
+					//pRManager->stopAllCardsActions();
+					this->unschedule(schedule_selector(TexaPoker::RoomM::Controller::RollingOverManager::addCards));
 					gravityOn = true;
 					//this->unscheduleAllSelectors();
 					//this->scheduleUpdateWithPriority(0);
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOAT){
 					gravityOn = false;
+					//pRManager->stopAllCardsActions();
+					this->unschedule(schedule_selector(TexaPoker::RoomM::Controller::RollingOverManager::addCards));
 					pRManager->turnOverAndFadeOutCards();
 				}
 
@@ -328,6 +341,12 @@ namespace TexaPoker{
 				{
 					body->GetWorld()->DestroyBody(body);
 				}
+			}
+
+			void RoomMScene::removeSprite(CCNode* pSender, void * data)
+			{
+				int * tag = reinterpret_cast<int *>(data);
+				CCDirector::sharedDirector()->getRunningScene()->removeChildByTag(*tag);
 			}
 
 			void RoomMScene::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)

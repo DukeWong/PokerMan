@@ -62,6 +62,7 @@ namespace TexaPoker{
 				void heartCallback(CCEvent* pEvent);
 				void update(float data);
 				void initCards(float data);
+				void removeSprite(CCNode* pSender, void * data);
 				b2World* getWorld();
 				b2Body* getGroundBody();
 			};
