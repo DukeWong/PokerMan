@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="org.TextPoker.hellocpp"
+      package="org.texaPoker.pokerMan"
       android:versionCode="6"
       android:versionName="1.1.0"
       android:installLocation="auto">
@@ -11,7 +11,7 @@
     <application android:label="@string/app_name"
         android:icon="@drawable/icon">
 
-        <activity android:name=".HelloCpp"
+        <activity android:name="org.texaPoker.pokerMan.HelloCpp"
                   android:label="@string/app_name"
                   android:screenOrientation="landscape"
                   android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
