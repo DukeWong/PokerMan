@@ -153,7 +153,7 @@ namespace TexaPoker{
 				TexaPoker::BaseGUI::BaseMoveButton* pRoomMGirlButton = TexaPoker::BaseGUI::BaseMoveButton::create(1, pRoomMGirlImage, pRoomMGirlActionBy);
 				pRoomMGirlButton->setTouchEnabled(false);
 				pRoomMGirlButton->setPosition(ccp(visibleSize.width/8 + origin.x, visibleSize.height/3 + origin.y));
-				this->addChild(pRoomMGirlButton, SCENE_Z_ORDER_FRONT, roomMGirlButtonTag);
+				CCDirector::sharedDirector()->getRunningScene()->addChild(pRoomMGirlButton, SCENE_Z_ORDER_FRONT, roomMGirlButtonTag);
 				pRoomMGirlButton->moveBy(pRoomMGirlButton);
 
 
@@ -165,7 +165,7 @@ namespace TexaPoker{
 				TexaPoker::BaseGUI::BaseButton* pFireButton = TexaPoker::BaseGUI::BaseButton::create(0.7f, pFireImage, this, event_selector(RoomMScene::fireCallback));
 				pFireButton->setAnchorPoint(ccp(0, 0));
 				pFireButton->setPosition(ccp(visibleSize.width/50*43, visibleSize.height/10*9.3));
-				this->addChild(pFireButton, SCENE_Z_ORDER_BUTTON, fireButtonTag);
+				CCDirector::sharedDirector()->getRunningScene()->addChild(pFireButton, SCENE_Z_ORDER_BUTTON, fireButtonTag);
 
 
 				CCMenuItemImage *pHeartImage = CCMenuItemImage::create(
@@ -176,7 +176,7 @@ namespace TexaPoker{
 				TexaPoker::BaseGUI::BaseButton* pHeartButton = TexaPoker::BaseGUI::BaseButton::create(0.7f, pHeartImage, this, event_selector(RoomMScene::heartCallback));
 				pHeartButton->setAnchorPoint(ccp(0, 0));
 				pHeartButton->setPosition(ccp(visibleSize.width/50*46, visibleSize.height/10*9.3));
-				this->addChild(pHeartButton, SCENE_Z_ORDER_BUTTON, heartButtonTag);
+				CCDirector::sharedDirector()->getRunningScene()->addChild(pHeartButton, SCENE_Z_ORDER_BUTTON, heartButtonTag);
 
 				this->scheduleOnce(schedule_selector(RoomMScene::initCards),ROOM_INIT_INTERVAL_TIME);
 
@@ -203,7 +203,7 @@ namespace TexaPoker{
 			void RoomMScene::fireCallback(CCEvent* pEvent)
 			{
 				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
-				((TexaPoker::BaseGUI::BaseButton*)(this->getChildByTag(fireButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2), CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&fireButtonTag), NULL));
+				((TexaPoker::BaseGUI::BaseButton*)(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(fireButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2), CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&fireButtonTag), NULL));
 				if(roomStatus != ROOM_STATUS_CARD_FLOAT)
 				{
 					roomStatus = ROOM_STATUS_CARD_FLOAT;
@@ -215,7 +215,7 @@ namespace TexaPoker{
 			{
 				//pHeartButton->getAnimation()->playByIndex(0);
 				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
-				((TexaPoker::BaseGUI::BaseButton*)(this->getChildByTag(heartButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2), CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&heartButtonTag), NULL));
+				((TexaPoker::BaseGUI::BaseButton*)(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(heartButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2), CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&heartButtonTag), NULL));
 				if(roomStatus != ROOM_STATUS_CARD_FLOW){
 					roomStatus = ROOM_STATUS_CARD_FLOW;
 				}else{
