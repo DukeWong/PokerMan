@@ -13,6 +13,8 @@ namespace TexaPoker{
 				:mScene(c)
 				,cardPositionSize(0)
 				,currentCardPosition(0)
+				,flowPositionSize(0)
+				,currentFlowPositionSize(0)
 			{
 				CC_SAFE_RETAIN(c);
 				initCardData();
@@ -128,7 +130,7 @@ namespace TexaPoker{
 				cardPositionSize = sizeof(cardsPosition)/sizeof(cardsPosition[0]);
 
 				flowPosition[0] = ccp(530, 700);
-				flowPosition[2] = ccp(130, 700);
+				flowPosition[1] = ccp(130, 700);
 
 				flowPositionSize = sizeof(flowPosition)/sizeof(flowPosition[0]);
 
