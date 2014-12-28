@@ -15,15 +15,19 @@ namespace TexaPoker{
 				std::string cardsArray[53];
 				std::vector <int> cardsTagArray;
 				CCPoint cardsPosition[45];
+				CCPoint flowPosition[2];
 				CCLayer *mScene;
 				int cardPositionSize;
 				int currentCardPosition;
+				int flowPositionSize;
+				int currentFlowPositionSize;
 			public:
 				RollingOverManager(CCLayer * c);
 				~RollingOverManager();
 				void initCardData();
 				void initCards();
 				void addCards(float time);
+				void flowCards(float time);
 				void stopAllCardsActions();
 				void turnOverAndFadeOutCards();
 				void removeCardsByTag();

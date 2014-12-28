@@ -179,7 +179,7 @@ namespace TexaPoker{
 					if(state == CARD_STATE_BACK)
 					{
 						turnOverBack();
-					}else if(state == CARD_STATE_FRONT){
+					}else if(state == CARD_STATE_FRONT && ((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getRoomStatus() == ROOM_STATUS_CARD_FLOW){
 						b2MouseJointDef md;
 						md.bodyA = ((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getGroundBody();
 						md.bodyB = body;

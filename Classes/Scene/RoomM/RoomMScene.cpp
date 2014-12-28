@@ -17,6 +17,7 @@ namespace TexaPoker{
 				,origin(CCDirector::sharedDirector()->getVisibleOrigin())
 				,roomStatus(ROOM_STATUS_INIT)
 				,pRManager(new TexaPoker::RoomM::Controller::RollingOverManager(this))
+				,endLineParticle(CCParticleSystemQuad::create(ROOM_M_PARTICEL_PATH_CONNECT(/endLine/endLine.plist)))
 				,gravityOn(false)
 				//,pPoker(CCSprite::create(ROOM_M_PATH_CONNECT(/card_back.png), CCRectMake(0,0,CCDirector::sharedDirector()->getVisibleSize().width,CCDirector::sharedDirector()->getVisibleSize().height)))
 			{
@@ -42,10 +43,12 @@ namespace TexaPoker{
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/deal_card.ogg));
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_turn_over.ogg));
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_fade_out.ogg));
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/button_turn_over.ogg));
 				}else{
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/deal_card.wav));
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_turn_over.wav));
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/button_turn_over.wav));
 				}
 			}
 
@@ -95,7 +98,7 @@ namespace TexaPoker{
 				initPhysics();
 
 				//开启debug Draw
-				//this->addChild(TexaPoker::External::B2DebugDraw::B2DebugDrawLayer::create(pWorld, 32), 9999);
+				this->addChild(TexaPoker::External::B2DebugDraw::B2DebugDrawLayer::create(pWorld, 32), 9999);
 
 				//开启update()
 				this->scheduleUpdateWithPriority(0);
@@ -156,7 +159,6 @@ namespace TexaPoker{
 				CCDirector::sharedDirector()->getRunningScene()->addChild(pRoomMGirlButton, SCENE_Z_ORDER_FRONT, roomMGirlButtonTag);
 				pRoomMGirlButton->moveBy(pRoomMGirlButton);
 
-
 				CCMenuItemImage *pFireImage = CCMenuItemImage::create(
 					ROOM_M_SPRITE_PATH_CONNECT(/fire.png),
 					ROOM_M_SPRITE_PATH_CONNECT(/fire.png),
@@ -166,7 +168,8 @@ namespace TexaPoker{
 				pFireButton->setAnchorPoint(ccp(0, 0));
 				pFireButton->setPosition(ccp(visibleSize.width/50*43, visibleSize.height/10*9.3));
 				CCDirector::sharedDirector()->getRunningScene()->addChild(pFireButton, SCENE_Z_ORDER_BUTTON, fireButtonTag);
-
+				CCActionInterval* fireTurnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
+				pFireButton->runAction(fireTurnAction);
 
 				CCMenuItemImage *pHeartImage = CCMenuItemImage::create(
 					ROOM_M_SPRITE_PATH_CONNECT(/heart.png),
@@ -177,8 +180,17 @@ namespace TexaPoker{
 				pHeartButton->setAnchorPoint(ccp(0, 0));
 				pHeartButton->setPosition(ccp(visibleSize.width/50*46, visibleSize.height/10*9.3));
 				CCDirector::sharedDirector()->getRunningScene()->addChild(pHeartButton, SCENE_Z_ORDER_BUTTON, heartButtonTag);
+				CCActionInterval* heartTurnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
+				pHeartButton->runAction(heartTurnAction);
 
-				this->scheduleOnce(schedule_selector(RoomMScene::initCards),ROOM_INIT_INTERVAL_TIME);
+				if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/button_turn_over.ogg));
+				}else{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/button_turn_over.wav));
+				}
+
+				this->scheduleOnce(schedule_selector(RoomMScene::initCards),ROOM_INIT_INTERVAL_TIME + 0.2);
 
 				this->setKeypadEnabled(true);
 
@@ -203,7 +215,14 @@ namespace TexaPoker{
 			void RoomMScene::fireCallback(CCEvent* pEvent)
 			{
 				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
-				((TexaPoker::BaseGUI::BaseButton*)(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(fireButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2), CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&fireButtonTag), NULL));
+				((TexaPoker::BaseGUI::BaseButton*)(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(fireButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2),
+					CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&fireButtonTag), CCCallFunc::create(this, callfunc_selector(RoomMScene::beginCardFlow)), NULL));
+				if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/button_turn_over.ogg));
+				}else{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/button_turn_over.wav));
+				}
 				if(roomStatus != ROOM_STATUS_CARD_FLOAT)
 				{
 					roomStatus = ROOM_STATUS_CARD_FLOAT;
@@ -216,6 +235,12 @@ namespace TexaPoker{
 				//pHeartButton->getAnimation()->playByIndex(0);
 				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
 				((TexaPoker::BaseGUI::BaseButton*)(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(heartButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2), CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&heartButtonTag), NULL));
+				if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/button_turn_over.ogg));
+				}else{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/button_turn_over.wav));
+				}
 				if(roomStatus != ROOM_STATUS_CARD_FLOW){
 					roomStatus = ROOM_STATUS_CARD_FLOW;
 				}else{
@@ -294,6 +319,11 @@ namespace TexaPoker{
 				return m_groundBody;
 			}
 
+			CCParticleSystemQuad* RoomMScene::getEndLine()
+			{
+				return endLineParticle;
+			}
+
 			void RoomMScene::keyBackClicked()
 			{
 				menuBackCallback(NULL);
@@ -349,9 +379,21 @@ namespace TexaPoker{
 				CCDirector::sharedDirector()->getRunningScene()->removeChildByTag(*tag);
 			}
 
+			void RoomMScene::beginCardFlow()
+			{
+				endLineParticle->setBlendAdditive(true);//是否混合 
+				endLineParticle->setPosition(ccp( 820, 125));
+				this->addChild(endLineParticle, SCENE_Z_ORDER_BG + 1);
+			}
+
 			void RoomMScene::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
 			{
 
+			}
+
+			int RoomMScene::getRoomStatus()
+			{
+				return roomStatus;
 			}
 
 		}}}

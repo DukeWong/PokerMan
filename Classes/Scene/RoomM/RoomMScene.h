@@ -36,6 +36,7 @@ namespace TexaPoker{
 				int fireButtonTag;
 				int roomMGirlButtonTag;
 				int roomStatus;
+				CCParticleSystemQuad* endLineParticle;
 				bool gravityOn;
 				TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
 				void checkSpritesStatus();
@@ -63,8 +64,11 @@ namespace TexaPoker{
 				void update(float data);
 				void initCards(float data);
 				void removeSprite(CCNode* pSender, void * data);
+				void beginCardFlow();
 				b2World* getWorld();
 				b2Body* getGroundBody();
+				CCParticleSystemQuad* getEndLine();
+				int getRoomStatus();
 			};
 		}
 	}

@@ -127,6 +127,11 @@ namespace TexaPoker{
 
 				cardPositionSize = sizeof(cardsPosition)/sizeof(cardsPosition[0]);
 
+				flowPosition[0] = ccp(530, 700);
+				flowPosition[2] = ccp(130, 700);
+
+				flowPositionSize = sizeof(flowPosition)/sizeof(flowPosition[0]);
+
 			}
 			void RollingOverManager::initCards()
 			{
@@ -359,6 +364,10 @@ namespace TexaPoker{
 				((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->setCurrentCardPosition(currentCardPosition + 1);
 			}
 
+			void RollingOverManager::flowCards(float dt)
+			{
+
+			}
 			void RollingOverManager::stopAllCardsActions()
 			{
 				for(vector<int>::iterator it = this->cardsTagArray.begin(); 
