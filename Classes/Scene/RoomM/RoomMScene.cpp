@@ -384,6 +384,7 @@ namespace TexaPoker{
 				endLineParticle->setBlendAdditive(true);//是否混合 
 				endLineParticle->setPosition(ccp( 820, 125));
 				this->addChild(endLineParticle, SCENE_Z_ORDER_BG + 1);
+				pRManager->initFlowCards();
 			}
 
 			void RoomMScene::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)

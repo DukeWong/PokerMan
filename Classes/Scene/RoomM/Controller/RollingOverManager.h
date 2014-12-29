@@ -20,12 +20,13 @@ namespace TexaPoker{
 				int cardPositionSize;
 				int currentCardPosition;
 				int flowPositionSize;
-				int currentFlowPositionSize;
+				int currentFlowPosition;
 			public:
 				RollingOverManager(CCLayer * c);
 				~RollingOverManager();
 				void initCardData();
 				void initCards();
+				void initFlowCards();
 				void addCards(float time);
 				void flowCards(float time);
 				void stopAllCardsActions();
@@ -34,10 +35,16 @@ namespace TexaPoker{
 				int getCardArrayCount(int cardNum, int cardType);
 				std::string* getCardArrays();
 				int getCardTag(int type, int num);
+
 				int getCardPositionSize();
 				CCPoint* getCardPositionArray();
 				void setCurrentCardPosition(int position);
 				int getCurrentCardPosition();
+
+				int getFlowPositionSize();
+				CCPoint* getFlowPositionArray();
+				void setCurrentFlowPosition(int position);
+				int getCurrentFlowPosition();
 				CCLayer* getMScence();
 			};
 		}
