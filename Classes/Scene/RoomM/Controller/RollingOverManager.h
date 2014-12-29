@@ -15,7 +15,7 @@ namespace TexaPoker{
 				std::string cardsArray[53];
 				std::vector <int> cardsTagArray;
 				CCPoint cardsPosition[45];
-				CCPoint flowPosition[2];
+				CCPoint flowPosition[8];
 				CCLayer *mScene;
 				int cardPositionSize;
 				int currentCardPosition;

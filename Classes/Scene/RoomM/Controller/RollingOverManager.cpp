@@ -129,11 +129,16 @@ namespace TexaPoker{
 
 				cardPositionSize = sizeof(cardsPosition)/sizeof(cardsPosition[0]);
 
-				flowPosition[0] = ccp(530, 600);
-				flowPosition[1] = ccp(230, 600);
+				flowPosition[0] = ccp(630, 650);
+				flowPosition[1] = ccp(830, 650);
+				flowPosition[2] = ccp(1032, 650);
+				flowPosition[3] = ccp(432, 650);
+				flowPosition[4] = ccp(877, 650);
+				flowPosition[5] = ccp(1060, 650);
+				flowPosition[6] = ccp(510, 650);
+				flowPosition[7] = ccp(830, 650);
 
 				flowPositionSize = sizeof(flowPosition)/sizeof(flowPosition[0]);
-				CCLOG("%d !!!", flowPositionSize);
 
 			}
 			void RollingOverManager::initCards()
@@ -143,7 +148,7 @@ namespace TexaPoker{
 
 			void RollingOverManager::initFlowCards()
 			{
-				mScene->schedule(schedule_selector(RollingOverManager::flowCards), 5);  
+				mScene->schedule(schedule_selector(RollingOverManager::flowCards), 3);  
 			}
 
 			int RollingOverManager::getCardTag(int type, int num)
@@ -374,9 +379,10 @@ namespace TexaPoker{
 
 			void RollingOverManager::flowCards(float dt)
 			{
+				((TexaPoker::RoomM::Scene::RoomMScene*)this)->gravityOn = true;
 				int currentFlowPosition = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getCurrentFlowPosition();
 				int flowPositionSize = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getFlowPositionSize();
-				CCLOG("%d --- %d ",currentFlowPosition, flowPositionSize );
+				//CCLOG("%d --- %d ",currentFlowPosition, flowPositionSize );
 				int type = CARD_TYPE(TexaPoker::BaseUtil::Num::genRand(0, 4));
 				int num = CARD_TYPE(TexaPoker::BaseUtil::Num::genRand(1, 13));
 				int tempTag = getCardTag(type, num);
@@ -389,6 +395,7 @@ namespace TexaPoker{
 				TexaPoker::RoomM::Sprites::RoomCard* pcard = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame( ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager() , CARD_STATE_FRONT, num, type, tempTag);
 				pcard->setPosition(ccp((positionArray + currentFlowPosition)->x, (positionArray + currentFlowPosition)->y));
 				CCDirector::sharedDirector()->getRunningScene()->addChild(pcard, SCENE_Z_ORDER_FRONT, tempTag);
+				pcard->bindPhysicalBody(ccp((positionArray + currentFlowPosition)->x, (positionArray + currentFlowPosition)->y));
 				currentFlowPosition++;
 				((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->setCurrentFlowPosition(currentFlowPosition);
 			}

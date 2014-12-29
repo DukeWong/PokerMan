@@ -32,7 +32,6 @@ namespace TexaPoker{
 						 //box2d
 						 b2Body* body;
 						 b2MouseJoint* pMouseJoint;
-						 void bindPhysicalBody(CCPoint to);
 
 			public:
 				static RoomCard* createWithSpriteFrame(TexaPoker::RoomM::Controller::RollingOverManager* manager, int state, int cardNum, int cardType, int tag);
@@ -42,6 +41,7 @@ namespace TexaPoker{
 				void setState(int s);
 				void dealCard(CCPoint to, float intervalTime);
 				void dealCardShake(CCPoint to, float intervalTime);
+				void bindPhysicalBody(CCPoint to);
 				void turnOverBack();
 				void turnOverBackFinished();
 				void turnOverBackAndFadeOut();

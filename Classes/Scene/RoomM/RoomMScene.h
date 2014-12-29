@@ -37,7 +37,6 @@ namespace TexaPoker{
 				int roomMGirlButtonTag;
 				int roomStatus;
 				CCParticleSystemQuad* endLineParticle;
-				bool gravityOn;
 				TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
 				void checkSpritesStatus();
 				virtual void keyBackClicked();//Android ·µ»Ø¼ü
@@ -50,6 +49,7 @@ namespace TexaPoker{
 
 
 			public:
+				bool gravityOn;
 				RoomMScene();
 				~RoomMScene();
 				virtual bool init();
