@@ -216,7 +216,7 @@ namespace TexaPoker{
 			{
 				CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
 				((TexaPoker::BaseGUI::BaseButton*)(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(fireButtonTag)))->runAction(CCSequence::create(turnAction, CCFadeOut::create(0.2),
-					CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&fireButtonTag), CCCallFunc::create(this, callfunc_selector(RoomMScene::beginCardFlow)), NULL));
+					CCCallFuncND::create(this,  callfuncND_selector(RoomMScene::removeSprite), (void *)&fireButtonTag), CCCallFunc::create(pRManager, callfunc_selector(TexaPoker::RoomM::Controller::RollingOverManager::turnOverAndFadeOutCards)), NULL));
 				if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 				{
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/button_turn_over.ogg));
@@ -270,7 +270,7 @@ namespace TexaPoker{
 					gravityOn = false;
 					//pRManager->stopAllCardsActions();
 					this->unschedule(schedule_selector(TexaPoker::RoomM::Controller::RollingOverManager::addCards));
-					pRManager->turnOverAndFadeOutCards();
+					//pRManager->turnOverAndFadeOutCards();
 				}
 
 			}
@@ -377,14 +377,6 @@ namespace TexaPoker{
 			{
 				int * tag = reinterpret_cast<int *>(data);
 				CCDirector::sharedDirector()->getRunningScene()->removeChildByTag(*tag);
-			}
-
-			void RoomMScene::beginCardFlow()
-			{
-				endLineParticle->setBlendAdditive(true);//是否混合 
-				endLineParticle->setPosition(ccp( 820, 125));
-				this->addChild(endLineParticle, SCENE_Z_ORDER_BG + 1);
-				pRManager->initFlowCards();
 			}
 
 			void RoomMScene::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)

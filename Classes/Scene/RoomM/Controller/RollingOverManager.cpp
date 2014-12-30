@@ -15,6 +15,7 @@ namespace TexaPoker{
 				,currentCardPosition(0)
 				,flowPositionSize(0)
 				,currentFlowPosition(0)
+				,currentFlowTurnOverCountPosition(0)
 			{
 				CC_SAFE_RETAIN(c);
 				initCardData();
@@ -143,11 +144,24 @@ namespace TexaPoker{
 			}
 			void RollingOverManager::initCards()
 			{
+				if(cardsTagArray.size() > 0){
+					cardsTagArray.clear();
+				}
 				mScene->schedule(schedule_selector(RollingOverManager::addCards), 0.15f);  
 			}
 
 			void RollingOverManager::initFlowCards()
 			{
+				CCParticleSystemQuad* endLineParticle = ((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getEndLine();
+				endLineParticle->setBlendAdditive(true);//ÊÇ·ñ»ìºÏ 
+				endLineParticle->setPosition(ccp( 820, 125));
+				CCDirector::sharedDirector()->getRunningScene()->addChild(endLineParticle, SCENE_Z_ORDER_BG + 1);
+				b2Body* list = ((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->GetBodyList();
+				int count = ((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->GetBodyCount();
+				for(int i = 0; i != count; i++)
+				//{
+				//	((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->DestroyBody(list);
+				//}
 				mScene->schedule(schedule_selector(RollingOverManager::flowCards), 3);  
 			}
 
@@ -417,9 +431,17 @@ namespace TexaPoker{
 					TexaPoker::RoomM::Sprites::RoomCard* card = dynamic_cast<TexaPoker::RoomM::Sprites::RoomCard *>(CCDirector::sharedDirector()->getRunningScene()->getChildByTag(*it));
 					if(card != NULL)
 					{
-						card->turnOverBackAndFadeOut();
+						CCDirector::sharedDirector()->getRunningScene()->runAction(CCCallFunc::create(card, callfunc_selector(TexaPoker::RoomM::Sprites::RoomCard::turnOverBackAndFadeOut)));
 					}
 				} 
+			}
+
+			void RollingOverManager::turnOverAndFadeOutCardsFinished()
+			{
+				currentFlowTurnOverCountPosition++;
+				if(currentFlowTurnOverCountPosition == cardsTagArray.size()){
+					initFlowCards();
+				}
 			}
 
 			int RollingOverManager::getCardArrayCount(int num, int type)

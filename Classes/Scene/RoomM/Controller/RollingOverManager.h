@@ -21,6 +21,7 @@ namespace TexaPoker{
 				int currentCardPosition;
 				int flowPositionSize;
 				int currentFlowPosition;
+				int currentFlowTurnOverCountPosition;
 			public:
 				RollingOverManager(CCLayer * c);
 				~RollingOverManager();
@@ -31,6 +32,7 @@ namespace TexaPoker{
 				void flowCards(float time);
 				void stopAllCardsActions();
 				void turnOverAndFadeOutCards();
+				void turnOverAndFadeOutCardsFinished();
 				void removeCardsByTag();
 				int getCardArrayCount(int cardNum, int cardType);
 				std::string* getCardArrays();

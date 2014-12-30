@@ -64,7 +64,6 @@ namespace TexaPoker{
 				void update(float data);
 				void initCards(float data);
 				void removeSprite(CCNode* pSender, void * data);
-				void beginCardFlow();
 				b2World* getWorld();
 				b2Body* getGroundBody();
 				CCParticleSystemQuad* getEndLine();

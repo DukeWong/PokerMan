@@ -45,6 +45,7 @@ namespace TexaPoker{
 				void turnOverBack();
 				void turnOverBackFinished();
 				void turnOverBackAndFadeOut();
+				void turnOverBackAndFadeOutFinished();
 				void DestoryBody();
 				CCRect rect();
 				virtual bool ccTouchBegan(cocos2d::CCTouch* touch, cocos2d::CCEvent* event);

@@ -135,7 +135,7 @@ namespace TexaPoker{
 				{
 					this->stopAllActions();
 					CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
-					this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(1), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), NULL));
+					this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(1), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackAndFadeOutFinished)), NULL));
 					this->state = CARD_STATE_FRONT;
 					if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 					{
@@ -145,8 +145,13 @@ namespace TexaPoker{
 					}
 				}else{
 					this->stopAllActions();
-					this->runAction(CCSequence::create(CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(1), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), NULL));
+					this->runAction(CCSequence::create(CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(1), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackAndFadeOutFinished)), NULL));
 				}			
+			}
+
+			void RoomCard::turnOverBackAndFadeOutFinished()
+			{
+				pManager->turnOverAndFadeOutCardsFinished();
 			}
 
 			void RoomCard::DestoryBody()
