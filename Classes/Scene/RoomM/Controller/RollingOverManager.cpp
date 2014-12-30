@@ -156,12 +156,13 @@ namespace TexaPoker{
 				endLineParticle->setBlendAdditive(true);//ÊÇ·ñ»ìºÏ 
 				endLineParticle->setPosition(ccp( 820, 125));
 				CCDirector::sharedDirector()->getRunningScene()->addChild(endLineParticle, SCENE_Z_ORDER_BG + 1);
-				b2Body* list = ((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->GetBodyList();
+				b2Body* mBody = ((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->GetBodyList();
 				int count = ((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->GetBodyCount();
-				for(int i = 0; i != count; i++)
-				//{
-				//	((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->DestroyBody(list);
-				//}
+				while(mBody){
+					b2Body* mBodyNext = mBody->GetNext();
+					((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->DestroyBody(mBody);
+					mBody = mBodyNext;
+				}
 				mScene->schedule(schedule_selector(RollingOverManager::flowCards), 3);  
 			}
 

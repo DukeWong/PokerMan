@@ -135,7 +135,7 @@ namespace TexaPoker{
 				{
 					this->stopAllActions();
 					CCActionInterval* turnAction = CCOrbitCamera::create(0.25f, 0, 1, 270, 90, 0, 0);
-					this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(1), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackAndFadeOutFinished)), NULL));
+					this->runAction(CCSequence::create(turnAction, CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(1.5), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackAndFadeOutFinished)), NULL));
 					this->state = CARD_STATE_FRONT;
 					if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 					{
@@ -145,7 +145,7 @@ namespace TexaPoker{
 					}
 				}else{
 					this->stopAllActions();
-					this->runAction(CCSequence::create(CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(1), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackAndFadeOutFinished)), NULL));
+					this->runAction(CCSequence::create(CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(1.5), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackAndFadeOutFinished)), NULL));
 				}			
 			}
 
@@ -186,7 +186,10 @@ namespace TexaPoker{
 						turnOverBack();
 					}else if(state == CARD_STATE_FRONT && ((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getRoomStatus() == ROOM_STATUS_CARD_FLOW){
 						b2MouseJointDef md;
-						md.bodyA = ((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getGroundBody();
+						b2BodyDef bodyGroundDef;
+						b2Body* m_groundBody = body->GetWorld()->CreateBody(&bodyGroundDef);
+						((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->setGroundBody(m_groundBody);
+						md.bodyA = m_groundBody;
 						md.bodyB = body;
 						md.target = b2Vec2(touchLocation.x/PTM_RATIO, touchLocation.y/PTM_RATIO);
 						md.maxForce = 1000.0f * body->GetMass();
@@ -202,6 +205,8 @@ namespace TexaPoker{
 				{
 					body->GetWorld()->DestroyJoint(pMouseJoint);
 					pMouseJoint = NULL;
+					body->GetWorld()->DestroyBody(((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getGroundBody());
+					((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->setGroundBody(NULL);
 				}
 			}
 

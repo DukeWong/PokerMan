@@ -115,9 +115,6 @@ namespace TexaPoker{
 				pWorld->SetContinuousPhysics(true);
 				pWorld->SetContactListener(this);
 
-				b2BodyDef bodyGroundDef;
-				m_groundBody = pWorld->CreateBody(&bodyGroundDef);
-
 				b2BodyDef bodyDef;
 				b2PolygonShape polygonShape;
 				b2FixtureDef fixtureDef;
@@ -317,6 +314,11 @@ namespace TexaPoker{
 			b2Body* RoomMScene::getGroundBody()
 			{
 				return m_groundBody;
+			}
+
+			void RoomMScene::setGroundBody(b2Body* b)
+			{
+				m_groundBody = b;
 			}
 
 			CCParticleSystemQuad* RoomMScene::getEndLine()

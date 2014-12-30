@@ -66,6 +66,7 @@ namespace TexaPoker{
 				void removeSprite(CCNode* pSender, void * data);
 				b2World* getWorld();
 				b2Body* getGroundBody();
+				void setGroundBody(b2Body* b);
 				CCParticleSystemQuad* getEndLine();
 				int getRoomStatus();
 			};
