@@ -443,6 +443,7 @@ namespace TexaPoker{
 				if(currentFlowTurnOverCountPosition == cardsTagArray.size()){
 					initFlowCards();
 				}
+				CCLOG("current%d size %d", currentFlowTurnOverCountPosition, cardsTagArray.size());
 			}
 
 			int RollingOverManager::getCardArrayCount(int num, int type)
@@ -453,6 +454,16 @@ namespace TexaPoker{
 			std::string * RollingOverManager::getCardArrays()
 			{
 				return this->cardsArray;
+			}
+
+			std::vector <int> RollingOverManager::getCardsTagArray()
+			{
+				return this->cardsTagArray;
+			}
+
+			void RollingOverManager::setCardsTagArray(std::vector<int> i)
+			{
+				this->cardsTagArray = i;
 			}
 
 			int RollingOverManager::getCardPositionSize()

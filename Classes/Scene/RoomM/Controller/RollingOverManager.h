@@ -36,6 +36,8 @@ namespace TexaPoker{
 				void removeCardsByTag();
 				int getCardArrayCount(int cardNum, int cardType);
 				std::string* getCardArrays();
+				std::vector <int> getCardsTagArray();
+				void setCardsTagArray(std::vector<int> i);
 				int getCardTag(int type, int num);
 
 				int getCardPositionSize();

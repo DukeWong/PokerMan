@@ -38,6 +38,7 @@ namespace TexaPoker{
 				~RoomCard();
 				int getNum();
 				int getState();
+				TexaPoker::RoomM::Controller::RollingOverManager* getManager();
 				void setState(int s);
 				void dealCard(CCPoint to, float intervalTime);
 				void dealCardShake(CCPoint to, float intervalTime);

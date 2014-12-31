@@ -265,6 +265,7 @@ namespace TexaPoker{
 					//this->scheduleUpdateWithPriority(0);
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOAT){
 					gravityOn = false;
+					pWorld->GetGravity().Set(0.0f, -10.0f);
 					//pRManager->stopAllCardsActions();
 					this->unschedule(schedule_selector(TexaPoker::RoomM::Controller::RollingOverManager::addCards));
 					//pRManager->turnOverAndFadeOutCards();
@@ -364,6 +365,18 @@ namespace TexaPoker{
 			void RoomMScene::finishFadeOutAction(CCNode* pSender, void * data)
 			{
 				TexaPoker::RoomM::Sprites::RoomCard *sprite = dynamic_cast<TexaPoker::RoomM::Sprites::RoomCard *>(pSender);
+
+				std::vector <int> TagArray = sprite->getManager()->getCardsTagArray();
+				std::vector <int>::iterator it = TagArray.begin();
+				CCLOG("%d sizebefore", TagArray.size());
+				for(; it!=TagArray.end(); ++it){
+					if(*it == sprite->getTag())
+					{
+						it=TagArray.erase(it);
+					}						
+				}
+				sprite->getManager()->setCardsTagArray(TagArray);
+
 				b2Body *body = reinterpret_cast<b2Body *>(data);
 				if(sprite != NULL)
 				{

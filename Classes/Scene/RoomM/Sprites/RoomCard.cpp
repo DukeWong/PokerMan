@@ -82,6 +82,11 @@ namespace TexaPoker{
 				state = mState;
 			}
 
+			TexaPoker::RoomM::Controller::RollingOverManager* RoomCard::getManager()
+			{
+				return pManager;
+			}
+
 			void RoomCard::dealCard(CCPoint to, float intervalTime)
 			{
 				if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
@@ -145,7 +150,7 @@ namespace TexaPoker{
 					}
 				}else{
 					this->stopAllActions();
-					this->runAction(CCSequence::create(CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackFinished)), CCFadeOut::create(1.5), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackAndFadeOutFinished)), NULL));
+					this->runAction(CCSequence::create(CCFadeOut::create(1.5), CCCallFunc::create(this, callfunc_selector(RoomCard::DestoryBody)), CCCallFunc::create(this, callfunc_selector(RoomCard::turnOverBackAndFadeOutFinished)), NULL));
 				}			
 			}
 
