@@ -407,10 +407,10 @@ namespace TexaPoker{
 					((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->setCurrentFlowPosition(0);
 				}
 				CCPoint* positionArray = ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->getFlowPositionArray();
-				TexaPoker::RoomM::Sprites::RoomCard* pcard = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame( ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager() , CARD_STATE_FRONT, num, type, tempTag);
+				TexaPoker::RoomM::Sprites::RoomCard* pcard = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame( ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager() , CARD_STATE_BACK, num, type, tempTag);
 				pcard->setPosition(ccp((positionArray + currentFlowPosition)->x, (positionArray + currentFlowPosition)->y));
 				CCDirector::sharedDirector()->getRunningScene()->addChild(pcard, SCENE_Z_ORDER_FRONT, tempTag);
-				pcard->bindPhysicalBody(ccp((positionArray + currentFlowPosition)->x, (positionArray + currentFlowPosition)->y));
+				pcard->bindPhysicalBody(ccp((positionArray + currentFlowPosition)->x, (positionArray + currentFlowPosition)->y), LINEAER_DAMP - 6, ANGULAR_DAMP);
 				currentFlowPosition++;
 				((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->setCurrentFlowPosition(currentFlowPosition);
 			}
@@ -443,7 +443,7 @@ namespace TexaPoker{
 				if(currentFlowTurnOverCountPosition == cardsTagArray.size()){
 					initFlowCards();
 				}
-				CCLOG("current%d size %d", currentFlowTurnOverCountPosition, cardsTagArray.size());
+				//CCLOG("current%d size %d", currentFlowTurnOverCountPosition, cardsTagArray.size());
 			}
 
 			int RollingOverManager::getCardArrayCount(int num, int type)

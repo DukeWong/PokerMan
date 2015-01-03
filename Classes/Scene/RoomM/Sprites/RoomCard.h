@@ -42,7 +42,7 @@ namespace TexaPoker{
 				void setState(int s);
 				void dealCard(CCPoint to, float intervalTime);
 				void dealCardShake(CCPoint to, float intervalTime);
-				void bindPhysicalBody(CCPoint to);
+				void bindPhysicalBody(CCPoint to, float LinearDamp, float angrularDamp);
 				void turnOverBack();
 				void turnOverBackFinished();
 				void turnOverBackAndFadeOut();

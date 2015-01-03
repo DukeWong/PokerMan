@@ -256,7 +256,6 @@ namespace TexaPoker{
 					//	((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->resetScale();
 					gravityOn = false;
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOW){
-					pWorld->GetGravity().Set(0.0f, -1.0f);
 					//	((TexaPoker::BaseGUI::BaseArmatureButton*)(this->getChildByTag(heartButtonTag)))->getAnimation()->playByIndex(0);
 					//pRManager->stopAllCardsActions();
 					this->unschedule(schedule_selector(TexaPoker::RoomM::Controller::RollingOverManager::addCards));
@@ -265,7 +264,6 @@ namespace TexaPoker{
 					//this->scheduleUpdateWithPriority(0);
 				}else if(roomStatus == ROOM_STATUS_CARD_FLOAT){
 					gravityOn = false;
-					pWorld->GetGravity().Set(0.0f, -10.0f);
 					//pRManager->stopAllCardsActions();
 					this->unschedule(schedule_selector(TexaPoker::RoomM::Controller::RollingOverManager::addCards));
 					//pRManager->turnOverAndFadeOutCards();
@@ -280,18 +278,23 @@ namespace TexaPoker{
 				if(gravityOn == true)
 				{
 					pWorld->Step(data, VELOCITY_ITERATIONS, POSITION_ITERATIONS); 
-
 					if(pWorld != NULL)
 					{
 						for(b2Body* b = pWorld->GetBodyList(); b; b = b->GetNext())  
 						{  
 							if(b!= NULL && b->GetUserData() != NULL)  
 							{  
-								CCSprite* sprite = (CCSprite*)b->GetUserData();  
-								//CCLOG("x%f,y%f", b->GetPosition().x, b->GetPosition().y);
+								TexaPoker::RoomM::Sprites::RoomCard * sprite = (TexaPoker::RoomM::Sprites::RoomCard*)b->GetUserData();  
+								//CCLOG("x%f,y%f", b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO);
 								sprite->setPosition(ccp(b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO)); 
 								sprite->setRotation(-1 * CC_RADIANS_TO_DEGREES(b->GetAngle()));
-							}  
+								if(roomStatus == ROOM_STATUS_CARD_FLOAT)
+								{
+									if(b->GetPosition().y <= 60/PTM_RATIO && sprite->getState() != CARD_STATE_DELETE){
+										fadeOutActioin(b, sprite, 0.08);
+									}
+								}
+							} 
 						} 
 					} 
 				}
@@ -346,20 +349,25 @@ namespace TexaPoker{
 					b2Body* body = spriteA->getNum() >= spriteB->getNum() ? bodyB : bodyA;
 					if(sprite->getState()== CARD_STATE_FRONT)
 					{
-						sprite->setState(CARD_STATE_DELETE);
-						CCFiniteTimeAction* pFadeOut = CCSequence::create(CCFadeOut::create(2), CCCallFuncND::create(sprite,  callfuncND_selector(RoomMScene::finishFadeOutAction), (void *)body), NULL);
-						sprite->runAction(pFadeOut);
-
-						if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-						{
-							CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_fade_out.ogg));
-						}else{
-							CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
-						}
+						fadeOutActioin(body, sprite, 2);
 					}
 				}
 
 
+			}
+
+			void RoomMScene::fadeOutActioin(b2Body * body, TexaPoker::RoomM::Sprites::RoomCard * card, float time)
+			{
+				card->setState(CARD_STATE_DELETE);
+				CCFiniteTimeAction* pFadeOut = CCSequence::create(CCFadeOut::create(time), CCCallFuncND::create(card,  callfuncND_selector(RoomMScene::finishFadeOutAction), (void *)body), NULL);
+				card->runAction(pFadeOut);
+
+				if(CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+				{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_fade_out.ogg));
+				}else{
+					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
+				}
 			}
 
 			void RoomMScene::finishFadeOutAction(CCNode* pSender, void * data)

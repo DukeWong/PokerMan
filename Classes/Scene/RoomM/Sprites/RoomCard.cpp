@@ -43,7 +43,7 @@ namespace TexaPoker{
 				CC_SAFE_RELEASE(pManager);
 			}
 
-			void RoomCard::bindPhysicalBody(CCPoint to)
+			void RoomCard::bindPhysicalBody(CCPoint to, float LinearDamp, float angrularDamp)
 			{
 				b2BodyDef bodyDef;
 				bodyDef.type = b2_dynamicBody;
@@ -52,8 +52,8 @@ namespace TexaPoker{
 
 				body = ((TexaPoker::RoomM::Scene::RoomMScene*)pManager->getMScence())->getWorld()->CreateBody(&bodyDef);
 				body->SetSleepingAllowed(true);
-				body->SetLinearDamping(LINEAER_DAMP);
-				body->SetAngularDamping(ANGULAR_DAMP);;
+				body->SetLinearDamping(LinearDamp);
+				body->SetAngularDamping(angrularDamp);;
 
 				b2PolygonShape polygonShape;
 				b2FixtureDef fixtureDef;
@@ -108,7 +108,7 @@ namespace TexaPoker{
 				}else{
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/deal_card.wav));
 				}
-				this->bindPhysicalBody(to);
+				this->bindPhysicalBody(to, LINEAER_DAMP, ANGULAR_DAMP);
 				CCActionInterval*  actionTo = CCMoveTo::create(intervalTime, to);
 				TexaPoker::BaseAction::ShakeAction* shake = TexaPoker::BaseAction::ShakeAction::create(99999999999, 1, 1);  //repeat forver
 				this->runAction(CCSequence::create(actionTo, shake, NULL));  

@@ -9,6 +9,7 @@
 #include "..\..\Common\GUI\BaseGUI.h"
 #include "..\..\Common\Action\BaseAction.h"
 #include "..\external\Box2D\Box2D.h"
+#include "..\..\Scene\RoomM\Sprites\RoomCard.h"
 
 #define ROOM_STATUS_INIT 0
 #define ROOM_STATUS_CARD_FLOW 1
@@ -39,8 +40,9 @@ namespace TexaPoker{
 				CCParticleSystemQuad* endLineParticle;
 				TexaPoker::RoomM::Controller::RollingOverManager* pRManager;
 				void checkSpritesStatus();
-				virtual void keyBackClicked();//Android ·µ»Ø¼ü
+				virtual void keyBackClicked();//Android 返回键
 				virtual void BeginContact(b2Contact* contact);
+				void fadeOutActioin(b2Body * body, TexaPoker::RoomM::Sprites::RoomCard * card, float time);
 				void finishFadeOutAction(CCNode* pSender, void* data);
 				virtual void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
 				//box2d
