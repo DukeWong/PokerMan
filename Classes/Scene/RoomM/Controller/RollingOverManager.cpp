@@ -2,6 +2,7 @@
 #include "..\Sprites\RoomCard.h"
 #include "..\..\..\Common\Util\BaseUtil.h"
 #include "..\RoomMScene.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 
@@ -163,6 +164,7 @@ namespace TexaPoker{
 					((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->DestroyBody(mBody);
 					mBody = mBodyNext;
 				}
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_flow_bg.mp3));
 				mScene->schedule(schedule_selector(RollingOverManager::flowCards), 3);  
 			}
 

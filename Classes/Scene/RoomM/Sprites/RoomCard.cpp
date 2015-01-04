@@ -186,9 +186,17 @@ namespace TexaPoker{
 				CCPoint touchLocation= touch->getLocation();
 				CCRect r = this->rect();
 				if(r.containsPoint(touchLocation)){
+					CCLOG("touch%d", body->GetPosition().y  * PTM_RATIO);
 					if(state == CARD_STATE_BACK)
 					{
-						turnOverBack();
+						if(((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getRoomStatus() == ROOM_STATUS_CARD_FLOAT){
+							if(abs(body->GetPosition().y  * PTM_RATIO - 100) < 100)
+							{
+								turnOverBackAndFadeOut();
+							}
+						}else{
+							turnOverBack();
+						}			
 					}else if(state == CARD_STATE_FRONT && ((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getRoomStatus() == ROOM_STATUS_CARD_FLOW){
 						b2MouseJointDef md;
 						b2BodyDef bodyGroundDef;

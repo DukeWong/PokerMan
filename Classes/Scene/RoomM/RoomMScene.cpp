@@ -50,6 +50,7 @@ namespace TexaPoker{
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/button_turn_over.wav));
 				}
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_flow_bg.mp3));
 			}
 
 			RoomMScene::~RoomMScene()
