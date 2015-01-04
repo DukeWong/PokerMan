@@ -377,12 +377,14 @@ namespace TexaPoker{
 
 				std::vector <int> TagArray = sprite->getManager()->getCardsTagArray();
 				std::vector <int>::iterator it = TagArray.begin();
-				CCLOG("%d sizebefore", TagArray.size());
-				for(; it!=TagArray.end(); ++it){
+				//CCLOG("%d sizebefore", TagArray.size());
+				for(; it!=TagArray.end();){
 					if(*it == sprite->getTag())
 					{
 						it=TagArray.erase(it);
-					}						
+					}else{
+						++it;
+					}					
 				}
 				sprite->getManager()->setCardsTagArray(TagArray);
 

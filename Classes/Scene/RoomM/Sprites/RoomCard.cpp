@@ -186,7 +186,6 @@ namespace TexaPoker{
 				CCPoint touchLocation= touch->getLocation();
 				CCRect r = this->rect();
 				if(r.containsPoint(touchLocation)){
-					CCLOG("touch%d", body->GetPosition().y  * PTM_RATIO);
 					if(state == CARD_STATE_BACK)
 					{
 						if(((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getRoomStatus() == ROOM_STATUS_CARD_FLOAT){

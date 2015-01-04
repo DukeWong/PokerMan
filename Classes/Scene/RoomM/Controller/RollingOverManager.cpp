@@ -155,7 +155,7 @@ namespace TexaPoker{
 			{
 				CCParticleSystemQuad* endLineParticle = ((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getEndLine();
 				endLineParticle->setBlendAdditive(true);//ÊÇ·ñ»ìºÏ 
-				endLineParticle->setPosition(ccp( 820, 125));
+				endLineParticle->setPosition(ccp( 800, 125));
 				CCDirector::sharedDirector()->getRunningScene()->addChild(endLineParticle, SCENE_Z_ORDER_BG + 1);
 				b2Body* mBody = ((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->GetBodyList();
 				int count = ((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->GetBodyCount();
@@ -165,7 +165,7 @@ namespace TexaPoker{
 					mBody = mBodyNext;
 				}
 				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_flow_bg.mp3));
-				mScene->schedule(schedule_selector(RollingOverManager::flowCards), 3);  
+				mScene->schedule(schedule_selector(RollingOverManager::flowCards), 1.2f);  
 			}
 
 			int RollingOverManager::getCardTag(int type, int num)
@@ -412,6 +412,7 @@ namespace TexaPoker{
 				TexaPoker::RoomM::Sprites::RoomCard* pcard = TexaPoker::RoomM::Sprites::RoomCard::createWithSpriteFrame( ((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager() , CARD_STATE_BACK, num, type, tempTag);
 				pcard->setPosition(ccp((positionArray + currentFlowPosition)->x, (positionArray + currentFlowPosition)->y));
 				CCDirector::sharedDirector()->getRunningScene()->addChild(pcard, SCENE_Z_ORDER_FRONT, tempTag);
+				CCDirector::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(pcard, 0, false);
 				pcard->bindPhysicalBody(ccp((positionArray + currentFlowPosition)->x, (positionArray + currentFlowPosition)->y), LINEAER_DAMP - 6, ANGULAR_DAMP);
 				currentFlowPosition++;
 				((TexaPoker::RoomM::Scene::RoomMScene*)this)->getPRManager()->setCurrentFlowPosition(currentFlowPosition);
