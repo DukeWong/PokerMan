@@ -164,7 +164,7 @@ namespace TexaPoker{
 					((TexaPoker::RoomM::Scene::RoomMScene*)mScene)->getWorld()->DestroyBody(mBody);
 					mBody = mBodyNext;
 				}
-				CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(AUDIO_PATH_CONNECT(/card_flow_bg.mp3));
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(AUDIO_PATH_CONNECT(/card_flow_bg.mp3));
 				mScene->schedule(schedule_selector(RollingOverManager::flowCards), 1.2f);  
 			}
 

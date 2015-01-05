@@ -50,23 +50,12 @@ namespace TexaPoker{
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_fade_out.wav));
 					CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/button_turn_over.wav));
 				}
-				CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadEffect(AUDIO_PATH_CONNECT(/card_flow_bg.mp3));
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(AUDIO_PATH_CONNECT(/card_flow_bg.mp3));
 			}
 
 			RoomMScene::~RoomMScene()
 			{
-				this->unscheduleAllSelectors();
-				if(pWorld != NULL)
-				{
-					for(b2Body* b = pWorld->GetBodyList(); b; b = b->GetNext())  
-					{  
-						if(b != NULL){
-							pWorld->DestroyBody(b);
-						}
-					} 
-					delete pWorld;
-					pWorld = NULL;
-				} 				
+
 			}
 
 			bool RoomMScene::init()
@@ -198,6 +187,13 @@ namespace TexaPoker{
 			void RoomMScene::onExit()
 			{
 				CCLayer::onExit();
+
+				this->unscheduleAllSelectors();
+				if(pWorld != NULL)
+				{
+					pWorld->ClearForces();
+				} 	
+				CocosDenshion::SimpleAudioEngine::sharedEngine()->end();
 			}
 
 			/*(m_pListener->*m_pfnSelector)(this);*/

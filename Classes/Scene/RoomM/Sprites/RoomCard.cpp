@@ -189,7 +189,7 @@ namespace TexaPoker{
 					if(state == CARD_STATE_BACK)
 					{
 						if(((TexaPoker::RoomM::Scene::RoomMScene*)(pManager->getMScence()))->getRoomStatus() == ROOM_STATUS_CARD_FLOAT){
-							if(abs(body->GetPosition().y  * PTM_RATIO - 100) < 100)
+							if(abs(body->GetPosition().y  * PTM_RATIO - 100) < 60)
 							{
 								turnOverBackAndFadeOut();
 							}

@@ -49,6 +49,8 @@ public:
 	// implement the "static node()" method manually
 	CREATE_FUNC(HallScene);
 
+	void onExit();
+
 	void pHallButtonBlue2Touched(CCObject* pSender);
 
 	void redButonCallback(CCEvent* pEvent);

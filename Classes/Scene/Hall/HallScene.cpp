@@ -114,6 +114,11 @@ HallScene::HallScene()
 
 HallScene::~HallScene()
 {
+
+}
+
+void HallScene::onExit()
+{
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->end();
 }
 
