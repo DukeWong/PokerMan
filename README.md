@@ -12,8 +12,8 @@
 > [œ¬‘ÿµÿ÷∑](http://archcodev.com/attachment/PokerMan.apk)
 
 ## ”Œœ∑ΩÿÕº
-(http://archcodev.com/images/2015/04/01.png)
-(http://archcodev.com/images/2015/04/02.png)
-(http://archcodev.com/images/2015/04/03.png)
-(http://archcodev.com/images/2015/04/04.png)
-(http://archcodev.com/images/2015/04/05.png)
+-  ![](http://archcodev.com/images/2015/04/01.png)
+-  ![](http://archcodev.com/images/2015/04/02.png)
+-  ![](http://archcodev.com/images/2015/04/03.png)
+-  ![](http://archcodev.com/images/2015/04/04.png)
+-  ![](http://archcodev.com/images/2015/04/05.png)
